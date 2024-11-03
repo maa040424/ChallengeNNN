@@ -7,3 +7,11 @@ def tebak_angka():
     
     print("Tebak angka dari 1 sampai 100")
     while tebakan != angka_rahasia:
+        tebakan = int(input("Masukkan tebakan kamu : "))
+        percobaan += 1
+        if tebakan < angka_rahasia:
+            print("Tebakan terlalu rendah!")
+        elif tebakan > angka_rahasia:
+            print("Tebakan terlalu tinggi!")
+        else:
+            print(f"Selamat! Kamu berhasil menemukan angka rahasia dalam ")

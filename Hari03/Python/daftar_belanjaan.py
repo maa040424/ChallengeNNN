@@ -18,3 +18,8 @@ def daftar_belanjaan():
             print("\nDaftar Belanjaan:")
             for i, item in enumerate(belanjaan, start=1):
                 print(f"{i}. {item}")
+        elif pilihan == "3" :
+            print for i, item in  enumerate(belanjaan, start=1):
+                print(f"{i}. {item}")
+            indeks = int(input("Masukkan nomor item yang ingin dihapus: "))        
+        

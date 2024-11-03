@@ -15,3 +15,5 @@ def tebak_angka():
             print("Tebakan terlalu tinggi!")
         else:
             print(f"Selamat! Kamu berhasil menemukan angka rahasia dalam ")
+
+tebak_angka()

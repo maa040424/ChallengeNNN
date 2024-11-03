@@ -17,6 +17,3 @@ for mata_uang, jumlah in hasil_konversi.items():
     print(f"{mata_uang}: {jumlah:.2f}")
     print(f"{mata_uang}: {jumlah:.2f}")
     print(f"{mata_uang}: {jumlah:.2f}")
-    print(f"{mata_uang}: {jumlah:.2f}")
-    print(f"{mata_uang}: {jumlah:.2f}")
-    print(f"{mata_uang}: {jumlah:.2f}")

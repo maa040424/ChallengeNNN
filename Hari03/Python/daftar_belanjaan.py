@@ -22,4 +22,8 @@ def daftar_belanjaan():
             print for i, item in  enumerate(belanjaan, start=1):
                 print(f"{i}. {item}")
             indeks = int(input("Masukkan nomor item yang ingin dihapus: "))        
-        
+            if 1 <= indeks <= len(belanjaan):
+                removed_item = belanjaan.pop(indeks - 1)
+                print(f"'{removed_item}' telah dihapus. ")
+            else:
+                print("Nomor item tidak valid. Coba lagi! ")

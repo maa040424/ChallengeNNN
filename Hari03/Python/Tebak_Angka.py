@@ -5,4 +5,5 @@ def tebak_angka():
     tebakan = None
     percobaan = 0
     
-print
+    print("Tebak angka dari 1 sampai 100")
+    while tebakan != angka_rahasia:

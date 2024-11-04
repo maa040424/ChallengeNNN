@@ -32,13 +32,3 @@ int main()
         {
             cout << "Error: Pembagian dengan nol!" << endl;
             return 1;
-        }
-        break;
-    default:
-        cout << "Operator tidak valid!" << endl;
-        return 1;
-    }
-
-    cout << "Hasil: " << hasil << endl;
-    return 0;
-}

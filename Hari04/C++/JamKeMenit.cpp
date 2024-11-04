@@ -1,7 +1,8 @@
 #include <iostream>
-using namespace std;
+using namespac
 
-int main()
+    int
+    main()
 {
     int totalDetik, jam, menit, detik;
 

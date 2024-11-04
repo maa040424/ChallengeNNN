@@ -12,17 +12,3 @@ bool isPrima(int n)
     }
     return true;
 }
-
-int main()
-{
-    int angka;
-    cout << "Masukkan sebuah angka: ";
-    cin >> angka;
-
-    if (isPrima(angka))
-        cout << angka << " adalah bilangan prima." << endl;
-    else
-        cout << angka << " bukan bilangan prima." << endl;
-
-    return 0;
-}

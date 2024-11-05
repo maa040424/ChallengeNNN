@@ -21,3 +21,9 @@ def draw_stem(t):
 def draw_leaf(t):
     """Menggambar daun bunga."""
     t.fillcolor("green")
+    t.begin_fill()
+    t.circle(50, 90)
+    t.left(90)
+    t.circle(50, 90)
+    t.left(90)
+    t.end_fill()

@@ -27,3 +27,23 @@ def draw_leaf(t):
     t.circle(50, 90)
     t.left(90)
     t.end_fill()
+    
+def main():
+    window = turtle.Screen()
+    window.bgcolor("lightblue")
+    
+    t = turtle.Turtle()
+    t.color("red")
+    t.speed(10)
+    
+    draw_flower(t, 10)
+    
+    t.color("brown")
+    draw_stem(t)
+    
+    t.left(45)
+    draw_leaf(t)
+    
+    t.hideturtle()
+    window.mainloop()
+    

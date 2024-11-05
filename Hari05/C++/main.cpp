@@ -23,7 +23,7 @@ int main() {
 	
 	window.clear(sf::Color::Black);
 	
-	window.draw(circle;);
+	window.draw(circle);
 	
 	window.display();
 	}

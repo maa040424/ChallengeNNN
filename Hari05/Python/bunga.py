@@ -13,4 +13,17 @@ def draw_flower(t, petals):
 
 def main():
     window = turtle.Screen()
-    window
+    window.bgcolor("lightblue")
+    
+    t = turtle.Turtle()
+    t.color("red")
+    t.speed(10)
+    
+    draw_flower(t, 10)
+    
+    t.hideturtle()
+    
+    window.mainloop()
+    
+
+    

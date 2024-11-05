@@ -47,3 +47,5 @@ def main():
     t.hideturtle()
     window.mainloop()
     
+if __name__ == "__main__":
+    main()

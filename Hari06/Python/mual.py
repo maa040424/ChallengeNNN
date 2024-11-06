@@ -12,3 +12,11 @@ def recursive_weird(x):
     else:
         return recursive_weird(x - 1) * random.randint(1, 10) + recursive_weird(x // 2)
 
+def final_step(x, y, z):
+    result = weird_func(x, y, z)
+    if result > 100:
+        result = result // 2
+    else:
+        result = result * random.randint(1, 100)
+    return result
+

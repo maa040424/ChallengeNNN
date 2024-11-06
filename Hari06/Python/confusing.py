@@ -14,4 +14,6 @@ def confusing(x, y, z):
         z = r(x, y, z) + p(y)
     return x + y - z + r(x, y, z)
 
-
+# Main program
+result = confusing(15, 20, 25)
+print(result)

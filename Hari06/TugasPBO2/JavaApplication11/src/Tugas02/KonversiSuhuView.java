@@ -38,37 +38,37 @@ public class KonversiSuhuView extends javax.swing.JFrame {
     
     private void performConversion() {
         String inputText = jTextField1.getText();
+    
+    if (inputText.isEmpty()) {
+        jLabel3.setText(""); // Menghapus hasil konversi jika input kosong
+        return;
+    }
 
-        // Validasi input
-        if (inputText.isEmpty()) {
-            jLabel3.setText(""); // Hapus hasil jika input kosong
+    try {
+        double suhu = Double.parseDouble(inputText);
+        konversiModel.setSuhuInput(suhu); // Set suhu pada model
+
+        // Tentukan jenis konversi berdasarkan pilihan radio button
+        if (jRadioButton1.isSelected()) {
+            konversiModel.setJenisKonversi("Celcius ke Fahrenheit");
+        } else if (jRadioButton2.isSelected()) {
+            konversiModel.setJenisKonversi("Celcius ke Reamur");
+        } else if (jRadioButton3.isSelected()) {
+            konversiModel.setJenisKonversi("Fahrenheit ke Celcius");
+        } else if (jRadioButton4.isSelected()) {
+            konversiModel.setJenisKonversi("Celcius ke Kelvin");
+        } else {
+            jLabel3.setText("Pilih jenis konversi terlebih dahulu.");
             return;
         }
 
-        try {
-            double suhu = Double.parseDouble(inputText);
-            konversiModel.setSuhuInput(suhu); // Set suhu pada model
+        // Lakukan konversi suhu menggunakan model
+        double hasil = konversiModel.konversiSuhu();
+        jLabel3.setText(String.format("%.2f", hasil)); // Tampilkan hasil konversi
 
-            // Tentukan jenis konversi berdasarkan pilihan radio button
-            if (jRadioButton1.isSelected()) {
-                konversiModel.setJenisKonversi("Celcius ke Fahrenheit");
-            } else if (jRadioButton2.isSelected()) {
-                konversiModel.setJenisKonversi("Celcius ke Reamur");
-            } else if (jRadioButton3.isSelected()) {
-                konversiModel.setJenisKonversi("Fahrenheit ke Celcius");
-            } else if (jRadioButton4.isSelected()) {
-                konversiModel.setJenisKonversi("Celcius ke Kelvin");
-            } else {
-                jLabel3.setText("Pilih jenis konversi terlebih dahulu.");
-                return;
-            }
-
-            // Lakukan konversi suhu menggunakan model
-            double hasil = konversiModel.konversiSuhu();
-            jLabel3.setText(String.format("%.2f", hasil)); // Tampilkan hasil konversi
-        } catch (NumberFormatException e) {
-            jLabel3.setText(""); // Hapus hasil jika format input salah
-        }
+    } catch (NumberFormatException e) {
+        jLabel3.setText("Input tidak valid!"); // Menampilkan pesan error jika input tidak valid
+    }
     }
 
     

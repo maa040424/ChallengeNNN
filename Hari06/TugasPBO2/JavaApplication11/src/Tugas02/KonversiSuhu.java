@@ -33,6 +33,7 @@ public class KonversiSuhu {
     public double konversiSuhu() {
         double hasil = 0.0;
 
+        // Switch untuk menangani berbagai jenis konversi
         switch (jenisKonversi) {
             case "Celcius ke Fahrenheit":
                 hasil = (suhuInput * 9/5) + 32;

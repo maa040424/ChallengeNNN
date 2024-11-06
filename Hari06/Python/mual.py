@@ -28,4 +28,6 @@ def mual_algorithm(a, b, c):
         seq = [x + random.randint(-5, 5) for x in seq]  # Mengacak hasil setiap iterasi
     return sum(seq) - max(seq)
 
-
+# Main program
+result = mual_algorithm(10, 20, 30)
+print("Final Result:", result)

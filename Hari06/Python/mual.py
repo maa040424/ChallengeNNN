@@ -6,4 +6,9 @@ def weird_func(a, b, c):
     z = sum([i * i for i in range(1, x)]) // (x + y)  # Operasi bertingkat
     return (z + x - y) if z % 2 == 0 else (z - x + y)
 
+def recursive_weird(x):
+    if x <= 1:
+        return x
+    else:
+        return recursive_weird(x - 1) * random.randint(1, 10) + recursive_weird(x // 2)
 

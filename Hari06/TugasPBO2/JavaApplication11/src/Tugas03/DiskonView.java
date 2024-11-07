@@ -57,7 +57,8 @@ public class DiskonView extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabelRiwayat = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaRiwayat = new javax.swing.JTextArea();
         jPanel6 = new javax.swing.JPanel();
         jTextFieldHasil = new javax.swing.JTextField();
         jTextFieldHemat = new javax.swing.JTextField();
@@ -80,7 +81,7 @@ public class DiskonView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(145, 145, 145)
+                .addGap(267, 267, 267)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -131,9 +132,9 @@ public class DiskonView extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(197, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(63, 63, 63))
+                .addGap(191, 191, 191))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,27 +144,28 @@ public class DiskonView extends javax.swing.JFrame {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        jLabelRiwayat.setText("Belum Ada Riwayat");
+        jTextAreaRiwayat.setEditable(false);
+        jTextAreaRiwayat.setColumns(20);
+        jTextAreaRiwayat.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaRiwayat);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelRiwayat)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelRiwayat)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 255, 255));
@@ -300,7 +302,9 @@ public class DiskonView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,13 +351,16 @@ public class DiskonView extends javax.swing.JFrame {
         jTextFieldHemat.setText(String.format("Rp. %.2f", hargaAsli - hargaSetelahDiskon));
 
         // Add the calculation to the history
-        String riwayatEntry = String.format("Harga Asli: Rp. %.2f, Harga Setelah Diskon: Rp. %.2f, Hemat: Rp. %.2f\n",
+        String riwayatEntry = String.format("Harga Asli: Rp. %.2f\nHarga Setelah Diskon: Rp. %.2f\nHemat: Rp. %.2f\n",
                 hargaAsli, hargaSetelahDiskon, hargaAsli - hargaSetelahDiskon);
+        
+        // Add a separator line
+        riwayatEntry += "=====================================\n";
 
         riwayat.append(riwayatEntry);
 
-        // Update the jLabelRiwayat with the latest history
-        jLabelRiwayat.setText("<html>" + riwayat.toString().replace("\n", "<br>") + "</html>");
+        // Update the jTextAreaRiwayat with the latest history
+        jTextAreaRiwayat.setText(riwayat.toString()); // Directly set the text of the TextArea
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -405,13 +412,14 @@ public class DiskonView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelRiwayat;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaRiwayat;
     private javax.swing.JTextField jTextFieldHargaAsli;
     private javax.swing.JTextField jTextFieldHasil;
     private javax.swing.JTextField jTextFieldHemat;

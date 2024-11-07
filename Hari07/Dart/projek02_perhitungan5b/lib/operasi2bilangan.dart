@@ -52,6 +52,9 @@ class Operasi2bilangan extends StatelessWidget {
                         hasil.text = hitung.toString();
                       },
                       child: Text("+")),
+                  SizedBox(
+                    width: 10,
+                  ),
                   ElevatedButton(
                       onPressed: () {
                         bil1.clear();

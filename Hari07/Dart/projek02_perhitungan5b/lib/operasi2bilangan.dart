@@ -42,7 +42,25 @@ class Operasi2bilangan extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              ElevatedButton(onPressed: () {}, child: Text("+")),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        double hitung =
+                            double.parse(bil1.text) + double.parse(bil2.text);
+                        hasil.text = hitung.toString();
+                      },
+                      child: Text("+")),
+                  ElevatedButton(
+                      onPressed: () {
+                        bil1.clear();
+                        bil2.clear();
+                        hasil.clear();
+                      },
+                      child: Text("Clear")),
+                ],
+              ),
               SizedBox(
                 height: 10,
               ),

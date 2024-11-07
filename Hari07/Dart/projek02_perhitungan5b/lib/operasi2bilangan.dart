@@ -33,6 +33,10 @@ class Operasi2bilangan extends StatelessWidget {
                     labelText: "Input Bilangan Kedua",
                     prefixIcon: Icon(Icons.numbers)),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(onPressed: () {}, child: Text("+"))
             ],
           ),
         ),

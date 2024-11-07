@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+TextEditingController bil1 = TextEditingController();
+TextEditingController bil2 = TextEditingController();
+TextEditingController hasil = TextEditingController();
+
 class Operasi2bilangan extends StatelessWidget {
   const Operasi2bilangan({super.key});
 
@@ -17,6 +21,7 @@ class Operasi2bilangan extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                controller: bil1,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "Input Bilangan Pertama",
@@ -27,6 +32,7 @@ class Operasi2bilangan extends StatelessWidget {
                 height: 10,
               ),
               TextField(
+                controller: bil2,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "Input Bilangan Kedua",
@@ -41,6 +47,7 @@ class Operasi2bilangan extends StatelessWidget {
                 height: 10,
               ),
               TextField(
+                controller: hasil,
                 enabled: false,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),

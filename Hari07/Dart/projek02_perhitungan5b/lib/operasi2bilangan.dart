@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BerandaPage extends StatelessWidget {
-  const BerandaPage({super.key});
+class Operasi2bilangan extends StatelessWidget {
+  const Operasi2bilangan({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Aplikasi Perhitungan"),
+        title: Text("Operasi 2 Bilangan"),
         backgroundColor: Colors.cyan,
       ),
       body: Center(
@@ -18,11 +18,17 @@ class BerandaPage extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Operasi 2 Bilangan")),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text("Operasi 2 Bilangan"),
+            ),
             SizedBox(
               height: 10,
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Konversi Suhu")),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text("Konversi Suhu"),
+            ),
           ],
         ),
       ),

@@ -4,10 +4,7 @@
  */
 package Tugas02;
 
-/**
- *
- * @author ASUS
- */
+
 public class KonversiSuhuView extends javax.swing.JFrame {
 
      private KonversiSuhu konversiModel;

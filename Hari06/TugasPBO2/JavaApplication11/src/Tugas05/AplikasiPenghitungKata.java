@@ -19,22 +19,22 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
      */
     public AplikasiPenghitungKata() {
         initComponents();
-        jTextAreaKata.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                hitung();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                hitung();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                hitung();
-            }
-        });
+//        jTextAreaKata.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                hitung();
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                hitung();
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                hitung();
+//            }
+//        });
     }
 
     /**

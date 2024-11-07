@@ -69,6 +69,7 @@ public class DiskonView extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Program Hitung Diskon");
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
@@ -81,7 +82,7 @@ public class DiskonView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(267, 267, 267)
+                .addGap(291, 291, 291)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

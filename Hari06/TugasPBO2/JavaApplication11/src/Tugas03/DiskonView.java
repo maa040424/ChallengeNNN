@@ -309,7 +309,9 @@ public class DiskonView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHitungActionPerformed
 
     private void jComboBoxDiskonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDiskonItemStateChanged
-        // TODO add your handling code here:
+         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            calculateDiscount();
+        }
     }//GEN-LAST:event_jComboBoxDiskonItemStateChanged
 
     private void calculateDiscount() {
@@ -329,8 +331,8 @@ public class DiskonView extends javax.swing.JFrame {
             hargaSetelahDiskon -= kuponDiskon;
 
             // Display results
-            jTextFieldHasil.setText(String.format("%.2f", hargaSetelahDiskon));
-            jTextFieldHemat.setText(String.format("%.2f", hargaAsli - hargaSetelahDiskon));
+            jTextFieldHasil.setText(String.format("%.2f"+"Rp.", hargaSetelahDiskon));
+            jTextFieldHemat.setText(String.format("%.2f"+"Rp.", hargaAsli - hargaSetelahDiskon));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
         }

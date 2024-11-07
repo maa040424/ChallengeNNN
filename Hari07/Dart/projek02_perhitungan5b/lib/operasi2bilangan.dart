@@ -36,7 +36,18 @@ class Operasi2bilangan extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              ElevatedButton(onPressed: () {}, child: Text("+"))
+              ElevatedButton(onPressed: () {}, child: Text("+")),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                enabled: false,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Hasil Perhitungan",
+                    labelText: "Hasil Perhitungan",
+                    prefixIcon: Icon(Icons.numbers)),
+              ),
             ],
           ),
         ),

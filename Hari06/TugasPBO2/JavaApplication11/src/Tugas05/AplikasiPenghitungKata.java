@@ -64,6 +64,7 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
         jButtonImport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Aplikasi Perhitungan Kata");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));

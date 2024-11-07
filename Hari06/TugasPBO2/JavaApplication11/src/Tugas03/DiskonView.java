@@ -331,8 +331,8 @@ public class DiskonView extends javax.swing.JFrame {
             hargaSetelahDiskon -= kuponDiskon;
 
             // Display results
-            jTextFieldHasil.setText(String.format("%.2f"+"Rp.", hargaSetelahDiskon));
-            jTextFieldHemat.setText(String.format("%.2f"+"Rp.", hargaAsli - hargaSetelahDiskon));
+            jTextFieldHasil.setText(String.format("%.2f", hargaSetelahDiskon));
+            jTextFieldHemat.setText(String.format("%.2f", hargaAsli - hargaSetelahDiskon));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
         }

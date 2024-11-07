@@ -4,10 +4,14 @@
  */
 package Tugas05;
 
-/**
- *
- * @author ASUS
- */
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 public class AplikasiPenghitungKata extends javax.swing.JFrame {
 
     /**
@@ -15,6 +19,22 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
      */
     public AplikasiPenghitungKata() {
         initComponents();
+        jTextAreaKata.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                hitung();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                hitung();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                hitung();
+            }
+        });
     }
 
     /**
@@ -36,9 +56,9 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
         jButtonClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabelKata = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelKarakter = new javax.swing.JLabel();
+        jLabelKalimat = new javax.swing.JLabel();
+        jLabelParagraf = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldCari = new javax.swing.JTextField();
         jButtonImport = new javax.swing.JButton();
@@ -96,11 +116,11 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
 
         jLabelKata.setText("Jumlah Kata :");
 
-        jLabel3.setText("Jumlah Karakter :");
+        jLabelKarakter.setText("Jumlah Karakter :");
 
-        jLabel4.setText("Jumlah Kalimat :");
+        jLabelKalimat.setText("Jumlah Kalimat :");
 
-        jLabel5.setText("Jumlah Paragraf :");
+        jLabelParagraf.setText("Jumlah Paragraf :");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -110,9 +130,9 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelKata)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabelKarakter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelKalimat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelParagraf))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -121,17 +141,28 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelKata)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabelKarakter)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jLabelKalimat)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(jLabelParagraf)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jLabel6.setText("Kata Yang Ingin Dicari : ");
 
+        jTextFieldCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldCariKeyReleased(evt);
+            }
+        });
+
         jButtonImport.setText("Import to txt");
+        jButtonImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,13 +228,89 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void hitung() {
+        String teks = jTextAreaKata.getText();
+        
+        // Menghitung kata
+        String[] kata = teks.split("\\s+");
+        int jumlahKata = (teks.trim().isEmpty()) ? 0 : kata.length;
+        
+        // Menghitung karakter
+        int jumlahKarakter = teks.replaceAll("\\s+", "").length();
+
+        // Menghitung kalimat (berdasarkan titik, tanda tanya, dan seru)
+        String[] kalimat = teks.split("[.!?]");
+        int jumlahKalimat = kalimat.length;
+        
+        // Menghitung paragraf (berdasarkan dua baris kosong atau newline)
+        String[] paragraf = teks.split("\\n\\s*\\n");
+        int jumlahParagraf = paragraf.length;
+
+        // Update label
+        jLabelKata.setText("Jumlah Kata: " + jumlahKata);
+        jLabelKarakter.setText("Jumlah Karakter: " + jumlahKarakter);
+        jLabelKalimat.setText("Jumlah Kalimat: " + jumlahKalimat);
+        jLabelParagraf.setText("Jumlah Paragraf: " + jumlahParagraf);
+    }
+    
+    
+    
+    
     private void jButtonHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHitungActionPerformed
-        // TODO add your handling code here:
+        hitung();
     }//GEN-LAST:event_jButtonHitungActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        // TODO add your handling code here:
+       jTextAreaKata.setText("");
+        jLabelKata.setText("Jumlah Kata: ");
+        jLabelKarakter.setText("Jumlah Karakter: ");
+        jLabelKalimat.setText("Jumlah Kalimat: ");
+        jLabelParagraf.setText("Jumlah Paragraf: ");
+        jTextFieldCari.setText("");
     }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void jButtonImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportActionPerformed
+        try {
+            File file = new File("hasil_penghitungan.txt");
+            FileWriter writer = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            bufferedWriter.write("Teks yang Dimasukkan: \n");
+            bufferedWriter.write(jTextAreaKata.getText());
+            bufferedWriter.newLine();
+            bufferedWriter.newLine();
+            bufferedWriter.write(jLabelKata.getText());
+            bufferedWriter.newLine();
+            bufferedWriter.write(jLabelKarakter.getText());
+            bufferedWriter.newLine();
+            bufferedWriter.write(jLabelKalimat.getText());
+            bufferedWriter.newLine();
+            bufferedWriter.write(jLabelParagraf.getText());
+
+            bufferedWriter.close();
+            writer.close();
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Teks dan hasil telah disimpan ke 'hasil_penghitungan.txt'");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButtonImportActionPerformed
+
+    private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCariKeyReleased
+        String teks = jTextAreaKata.getText();
+        String cari = jTextFieldCari.getText().toLowerCase();
+        
+        // Menghitung jumlah kemunculan kata
+        Pattern p = Pattern.compile("\\b" + cari + "\\b", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(teks);
+        int count = 0;
+        
+        while (m.find()) {
+            count++;
+        }
+        
+        jLabelKalimat.setText("Kemunculan kata '" + cari + "': " + count);
+    }//GEN-LAST:event_jTextFieldCariKeyReleased
 
     /**
      * @param args the command line arguments
@@ -246,11 +353,11 @@ public class AplikasiPenghitungKata extends javax.swing.JFrame {
     private javax.swing.JButton jButtonImport;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelKalimat;
+    private javax.swing.JLabel jLabelKarakter;
     private javax.swing.JLabel jLabelKata;
+    private javax.swing.JLabel jLabelParagraf;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

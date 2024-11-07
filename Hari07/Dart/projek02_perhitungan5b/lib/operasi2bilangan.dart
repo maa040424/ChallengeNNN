@@ -10,26 +10,31 @@ class Operasi2bilangan extends StatelessWidget {
         title: Text("Operasi 2 Bilangan"),
         backgroundColor: Colors.cyan,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Silahkan pilih menu yang tersedia"),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Operasi 2 Bilangan"),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Konversi Suhu"),
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Input Bilangan Pertama",
+                    labelText: "Input Bilangan Pertama",
+                    prefixIcon: Icon(Icons.numbers)),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Input Bilangan Kedua",
+                    labelText: "Input Bilangan Kedua",
+                    prefixIcon: Icon(Icons.numbers)),
+              ),
+            ],
+          ),
         ),
       ),
     );

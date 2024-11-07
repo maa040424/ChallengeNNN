@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projek02_perhitungan5b/operasi2bilangan.dart';
 
 class BerandaPage extends StatelessWidget {
   const BerandaPage({super.key});
@@ -18,7 +19,14 @@ class BerandaPage extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Operasi 2 Bilangan")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Operasi2bilangan()));
+                },
+                child: Text("Operasi 2 Bilangan")),
             SizedBox(
               height: 10,
             ),

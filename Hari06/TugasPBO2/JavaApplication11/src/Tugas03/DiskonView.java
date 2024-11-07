@@ -17,7 +17,22 @@ public class DiskonView extends javax.swing.JFrame {
      */
     public DiskonView() {
         initComponents();
+        setupComboBox();
     }
+    
+    private void setupComboBox() {
+        // Setting items with discount percentages
+        jComboBoxDiskon.removeAllItems();
+        jComboBoxDiskon.addItem("0%");
+        jComboBoxDiskon.addItem("10%");
+        jComboBoxDiskon.addItem("20%");
+        jComboBoxDiskon.addItem("30%");
+        jComboBoxDiskon.addItem("40%");
+        jComboBoxDiskon.addItem("50%");
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -290,7 +305,7 @@ public class DiskonView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHitungActionPerformed
-        
+        calculateDiscount();
     }//GEN-LAST:event_jButtonHitungActionPerformed
 
     private void jComboBoxDiskonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDiskonItemStateChanged

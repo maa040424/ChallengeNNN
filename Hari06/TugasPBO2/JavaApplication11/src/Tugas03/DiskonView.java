@@ -58,8 +58,6 @@ public class DiskonView extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jTextFieldHasil = new javax.swing.JTextField();
         jTextFieldHemat = new javax.swing.JTextField();
@@ -142,37 +140,18 @@ public class DiskonView extends javax.swing.JFrame {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -309,33 +288,40 @@ public class DiskonView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHitungActionPerformed
 
     private void jComboBoxDiskonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDiskonItemStateChanged
-         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-            calculateDiscount();
-        }
+   
     }//GEN-LAST:event_jComboBoxDiskonItemStateChanged
 
     private void calculateDiscount() {
         try {
-            // Get original price
-            double hargaAsli = Double.parseDouble(jTextFieldHargaAsli.getText());
+        // Get original price
+        double hargaAsli = Double.parseDouble(jTextFieldHargaAsli.getText());
 
-            // Get discount percentage from jComboBox
-            String selectedDiscount = (String) jComboBoxDiskon.getSelectedItem();
-            double diskon = Double.parseDouble(selectedDiscount.replace("%", ""));
+        // Get discount percentage from jComboBox
+        String selectedDiscount = (String) jComboBoxDiskon.getSelectedItem();
+        double diskon = Double.parseDouble(selectedDiscount.replace("%", ""));
 
-            // Calculate discounted price
-            double hargaSetelahDiskon = hargaAsli - (hargaAsli * diskon / 100);
+        // Calculate discounted price
+        double hargaSetelahDiskon = hargaAsli - (hargaAsli * diskon / 100);
 
-            // Apply coupon if available
-            double kuponDiskon = jTextFieldKupon.getText().isEmpty() ? 0 : Double.parseDouble(jTextFieldKupon.getText());
-            hargaSetelahDiskon -= kuponDiskon;
-
-            // Display results
-            jTextFieldHasil.setText(String.format("%.2f", hargaSetelahDiskon));
-            jTextFieldHemat.setText(String.format("%.2f", hargaAsli - hargaSetelahDiskon));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
+        // Apply coupon if available
+        double kuponDiskon = 0;
+        String kupon = jTextFieldKupon.getText().toUpperCase(); // Convert kupon input to uppercase for case insensitivity
+        if (kupon.equals("UNISKA")) {
+            kuponDiskon = 2000; // Discount for "UNISKA"
+        } else if (kupon.equals("FTI")) {
+            kuponDiskon = 3000; // Discount for "FTI"
         }
+
+        // Subtract the kupon discount
+        hargaSetelahDiskon -= kuponDiskon;
+
+        // Display results
+        jTextFieldHasil.setText(String.format("Rp. %.2f", hargaSetelahDiskon));
+        jTextFieldHemat.setText(String.format("Rp. %.2f", hargaAsli - hargaSetelahDiskon));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }
     
     public static void main(String args[]) {
@@ -386,9 +372,7 @@ public class DiskonView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSlider1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldHargaAsli;
     private javax.swing.JTextField jTextFieldHasil;
     private javax.swing.JTextField jTextFieldHemat;

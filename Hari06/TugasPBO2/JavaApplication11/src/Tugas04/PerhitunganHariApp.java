@@ -5,6 +5,7 @@
 package Tugas04;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import javax.swing.DefaultComboBoxModel;
@@ -21,6 +22,7 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
     public PerhitunganHariApp() {
         initComponents();
          setUpComboBox();
+         setResizable(false);
     }
 
    private void setUpComboBox() {
@@ -142,7 +144,7 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,31 +163,38 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
 
     private void jButtonHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHitungActionPerformed
         // Mengambil tahun dan bulan dari input pengguna
-        int tahun = (int) jSpinnerTahun.getValue();
-        int bulan = jComboBoxBulan.getSelectedIndex() + 1; // Bulan dimulai dari 1 hingga 12
+int tahun = (int) jSpinnerTahun.getValue();
+int bulan = jComboBoxBulan.getSelectedIndex() + 1; // Bulan dimulai dari 1 hingga 12
 
-        // Menghitung jumlah hari dalam bulan yang dipilih
-        YearMonth yearMonth = YearMonth.of(tahun, bulan);
-        int jumlahHari = yearMonth.lengthOfMonth();
+// Menghitung jumlah hari dalam bulan yang dipilih
+YearMonth yearMonth = YearMonth.of(tahun, bulan);
+int jumlahHari = yearMonth.lengthOfMonth();
 
-        // Mendapatkan tanggal pertama dan terakhir dalam bulan tersebut
-        LocalDate tanggalPertama = LocalDate.of(tahun, bulan, 1);
-        LocalDate tanggalTerakhir = LocalDate.of(tahun, bulan, jumlahHari);
+// Mendapatkan tanggal pertama dan terakhir dalam bulan tersebut
+LocalDate tanggalPertama = LocalDate.of(tahun, bulan, 1);
+LocalDate tanggalTerakhir = LocalDate.of(tahun, bulan, jumlahHari);
 
-        // Menampilkan hasil pada jTextArea1
-        jTextArea1.setText("Jumlah hari di bulan " + jComboBoxBulan.getSelectedItem() + " " + tahun + ": " + jumlahHari + "\n");
-        jTextArea1.append("Hari pertama: " + tanggalPertama.getDayOfWeek() + "\n");
-        jTextArea1.append("Hari terakhir: " + tanggalTerakhir.getDayOfWeek() + "\n");
+// Menentukan apakah tahun tersebut adalah tahun kabisat
+boolean tahunKabisat = Year.isLeap(tahun);
 
-        // Menghitung selisih hari antara tanggal pertama di jCalendar1 dan tanggal terakhir di bulan yang dipilih
-        LocalDate selectedDate = LocalDate.of(
-                jCalendar1.getYearChooser().getYear(),
-                jCalendar1.getMonthChooser().getMonth() + 1,
-                jCalendar1.getDayChooser().getDay()
-        );
+// Menampilkan hasil pada jTextArea1
+jTextArea1.setText("Jumlah hari di bulan " + jComboBoxBulan.getSelectedItem() + " " + tahun + ": " + jumlahHari + "\n");
+jTextArea1.append("Hari pertama: " + tanggalPertama.getDayOfWeek() + "\n");
+jTextArea1.append("Hari terakhir: " + tanggalTerakhir.getDayOfWeek() + "\n");
 
-        long selisihHari = ChronoUnit.DAYS.between(selectedDate, tanggalTerakhir);
-        jTextArea1.append("Selisih hari dari tanggal yang dipilih hingga akhir bulan: " + Math.abs(selisihHari) + " hari\n");
+// Menampilkan informasi apakah tahun tersebut adalah kabisat atau bukan
+jTextArea1.append("Tahun " + tahun + (tahunKabisat ? " adalah tahun kabisat.\n" : " bukan tahun kabisat.\n"));
+
+// Menghitung selisih hari antara tanggal pertama di jCalendar1 dan tanggal terakhir di bulan yang dipilih
+LocalDate selectedDate = LocalDate.of(
+        jCalendar1.getYearChooser().getYear(),
+        jCalendar1.getMonthChooser().getMonth() + 1,
+        jCalendar1.getDayChooser().getDay()
+);
+
+long selisihHari = ChronoUnit.DAYS.between(selectedDate, tanggalTerakhir);
+jTextArea1.append("Selisih hari dari tanggal yang dipilih hingga akhir bulan: " + Math.abs(selisihHari) + " hari\n");
+
     }//GEN-LAST:event_jButtonHitungActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

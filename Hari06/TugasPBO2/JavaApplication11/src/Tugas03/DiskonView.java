@@ -4,6 +4,8 @@
  */
 package Tugas03;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ASUS
@@ -81,6 +83,11 @@ public class DiskonView extends javax.swing.JFrame {
         jLabel2.setText("Masukan Harga Asli   :");
 
         jComboBoxDiskon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDiskon.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDiskonItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Diskon/%                     :");
@@ -89,6 +96,11 @@ public class DiskonView extends javax.swing.JFrame {
         jLabel4.setText("Opsional Kupon          :");
 
         jButtonHitung.setText("Hitung");
+        jButtonHitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHitungActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -277,9 +289,38 @@ public class DiskonView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButtonHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHitungActionPerformed
+        
+    }//GEN-LAST:event_jButtonHitungActionPerformed
+
+    private void jComboBoxDiskonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDiskonItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxDiskonItemStateChanged
+
+    private void calculateDiscount() {
+        try {
+            // Get original price
+            double hargaAsli = Double.parseDouble(jTextFieldHargaAsli.getText());
+
+            // Get discount percentage from jComboBox
+            String selectedDiscount = (String) jComboBoxDiskon.getSelectedItem();
+            double diskon = Double.parseDouble(selectedDiscount.replace("%", ""));
+
+            // Calculate discounted price
+            double hargaSetelahDiskon = hargaAsli - (hargaAsli * diskon / 100);
+
+            // Apply coupon if available
+            double kuponDiskon = jTextFieldKupon.getText().isEmpty() ? 0 : Double.parseDouble(jTextFieldKupon.getText());
+            hargaSetelahDiskon -= kuponDiskon;
+
+            // Display results
+            jTextFieldHasil.setText(String.format("%.2f", hargaSetelahDiskon));
+            jTextFieldHemat.setText(String.format("%.2f", hargaAsli - hargaSetelahDiskon));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

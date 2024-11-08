@@ -314,23 +314,28 @@ private void resetKonversiOtomatis() {
         double suhuAwal = Double.parseDouble(jTextFieldSuhu.getText());
         String skalaAwal = (String) jComboBox1.getSelectedItem();
         double hasilKonversi = 0.0;
+        String satuanTujuan = "";  // Variabel untuk menyimpan satuan tujuan
 
         // Tentukan skala suhu tujuan
         if (jRadioButtonCelcius.isSelected()) {
             hasilKonversi = convertToCelsius(suhuAwal, skalaAwal);
+            satuanTujuan = "Celcius";
         } else if (jRadioButtonFahrenheit.isSelected()) {
             hasilKonversi = convertToFahrenheit(suhuAwal, skalaAwal);
+            satuanTujuan = "Fahrenheit";
         } else if (jRadioButtonReamur.isSelected()) {
             hasilKonversi = convertToReamur(suhuAwal, skalaAwal);
+            satuanTujuan = "Reamur";
         } else if (jRadioButtonKelvin.isSelected()) {
             hasilKonversi = convertToKelvin(suhuAwal, skalaAwal);
+            satuanTujuan = "Kelvin";
         } else {
             JOptionPane.showMessageDialog(this, "Pilih skala suhu tujuan!");
             return;
         }
 
-        // Tampilkan hasil konversi
-        jTextFieldHasil.setText(String.format("%.2f", hasilKonversi));
+        // Tampilkan hasil konversi dengan satuan
+        jTextFieldHasil.setText(String.format("%.2f %s", hasilKonversi, satuanTujuan));
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Input tidak valid. Masukkan angka.");
     }

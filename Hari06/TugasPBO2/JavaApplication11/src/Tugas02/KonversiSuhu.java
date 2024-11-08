@@ -8,13 +8,56 @@ import javax.swing.JOptionPane;
 
 public class KonversiSuhu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form KonversiSuhu
-     */
+    private boolean konversiOtomatis = false;
+    
     public KonversiSuhu() {
         initComponents();
         setupComboBox();
+        // Tambah listener pada jTextFieldSuhu untuk konversi otomatis
+    jTextFieldSuhu.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        @Override
+        public void insertUpdate(javax.swing.event.DocumentEvent e) {
+            konversiOtomatis();
+        }
+
+        @Override
+        public void removeUpdate(javax.swing.event.DocumentEvent e) {
+            konversiOtomatis();
+        }
+
+        @Override
+        public void changedUpdate(javax.swing.event.DocumentEvent e) {
+            konversiOtomatis();
+        }
+    });
+    
+    // Tambah listener pada jComboBox1 dan radio button untuk reset
+    jComboBox1.addActionListener(e -> resetKonversiOtomatis());
+    jRadioButtonCelcius.addActionListener(e -> resetKonversiOtomatis());
+    jRadioButtonFahrenheit.addActionListener(e -> resetKonversiOtomatis());
+    jRadioButtonReamur.addActionListener(e -> resetKonversiOtomatis());
+    jRadioButtonKelvin.addActionListener(e -> resetKonversiOtomatis());
+        
+        
     }
+    
+    private void konversiOtomatis() {
+    if (konversiOtomatis) {
+        try {
+            jButtonKonversiActionPerformed(null); // Panggil fungsi konversi
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error konversi otomatis: " + e.getMessage());
+        }
+    }
+}
+    
+    // Method untuk reset konversi otomatis
+private void resetKonversiOtomatis() {
+    konversiOtomatis = false;
+    jTextFieldSuhu.setText(""); // Hapus input suhu
+    jTextFieldHasil.setText(""); // Hapus hasil konversi
+}
+    
 
     private void setupComboBox() {
         // Menambahkan opsi skala suhu awal di ComboBox
@@ -264,43 +307,103 @@ public class KonversiSuhu extends javax.swing.JFrame {
 
     private void jButtonKonversiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKonversiActionPerformed
         try {
-            // Ambil nilai input suhu dari text field
-            double suhuAwal = Double.parseDouble(jTextFieldSuhu.getText());
-            String skalaAwal = (String) jComboBox1.getSelectedItem();
-            double hasilKonversi = 0.0;
+        // Aktifkan konversi otomatis setelah tombol Konversi ditekan
+        konversiOtomatis = true;
 
-            // Tentukan skala suhu tujuan
-            if (jRadioButtonCelcius.isSelected()) {
-                hasilKonversi = convertToCelsius(suhuAwal, skalaAwal);
-            } else if (jRadioButtonFahrenheit.isSelected()) {
-                hasilKonversi = convertToFahrenheit(suhuAwal, skalaAwal);
-            } else if (jRadioButtonReamur.isSelected()) {
-                hasilKonversi = convertToReamur(suhuAwal, skalaAwal);
-            } else if (jRadioButtonKelvin.isSelected()) {
-                hasilKonversi = convertToKelvin(suhuAwal, skalaAwal);
-            } else {
-                JOptionPane.showMessageDialog(this, "Pilih skala suhu tujuan!");
-                return;
-            }
+        // Ambil nilai input suhu dari text field
+        double suhuAwal = Double.parseDouble(jTextFieldSuhu.getText());
+        String skalaAwal = (String) jComboBox1.getSelectedItem();
+        double hasilKonversi = 0.0;
 
-            // Tampilkan hasil konversi
-            jTextFieldHasil.setText(String.format("%.2f", hasilKonversi));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Input tidak valid. Masukkan angka.");
+        // Tentukan skala suhu tujuan
+        if (jRadioButtonCelcius.isSelected()) {
+            hasilKonversi = convertToCelsius(suhuAwal, skalaAwal);
+        } else if (jRadioButtonFahrenheit.isSelected()) {
+            hasilKonversi = convertToFahrenheit(suhuAwal, skalaAwal);
+        } else if (jRadioButtonReamur.isSelected()) {
+            hasilKonversi = convertToReamur(suhuAwal, skalaAwal);
+        } else if (jRadioButtonKelvin.isSelected()) {
+            hasilKonversi = convertToKelvin(suhuAwal, skalaAwal);
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih skala suhu tujuan!");
+            return;
         }
+
+        // Tampilkan hasil konversi
+        jTextFieldHasil.setText(String.format("%.2f", hasilKonversi));
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Input tidak valid. Masukkan angka.");
+    }
     }//GEN-LAST:event_jButtonKonversiActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        // Membersihkan input dan output
-        jTextFieldSuhu.setText("");
-        jTextFieldHasil.setText("");
-        jComboBox1.setSelectedIndex(0);
-        jRadioButtonCelcius.setSelected(false);
-        jRadioButtonFahrenheit.setSelected(false);
-        jRadioButtonReamur.setSelected(false);
-        jRadioButtonKelvin.setSelected(false);
+       // Reset konversi otomatis dan membersihkan input dan output
+    konversiOtomatis = false;
+    jTextFieldSuhu.setText("");
+    jTextFieldHasil.setText("");
+    jComboBox1.setSelectedIndex(0);
+    jRadioButtonCelcius.setSelected(false);
+    jRadioButtonFahrenheit.setSelected(false);
+    jRadioButtonReamur.setSelected(false);
+    jRadioButtonKelvin.setSelected(false);
     }//GEN-LAST:event_jButtonClearActionPerformed
-
+    //Metode konversi suhu ke Celcius
+    private double convertToCelsius(double value, String scale) {
+        switch (scale) {
+            case "Fahrenheit":
+                return (value - 32) * 5 / 9;
+            case "Reamur":
+                return value * 5 / 4;
+            case "Kelvin":
+                return value - 273.15;
+            default:
+                return value;
+        }
+    }
+    
+    // Metode konversi suhu ke Fahrenheit
+    private double convertToFahrenheit(double value, String scale) {
+        switch (scale) {
+            case "Celcius":
+                return value * 9 / 5 + 32;
+            case "Reamur":
+                return value * 9 / 4 + 32;
+            case "Kelvin":
+                return (value - 273.15) * 9 / 5 + 32;
+            default:
+                return value;
+        }
+    }
+    
+    // Metode konversi suhu ke Reamur
+    private double convertToReamur(double value, String scale) {
+        switch (scale) {
+            case "Celcius":
+                return value * 4 / 5;
+            case "Fahrenheit":
+                return (value - 32) * 4 / 9;
+            case "Kelvin":
+                return (value - 273.15) * 4 / 5;
+            default:
+                return value;
+        }
+    }
+    
+    // Metode konversi suhu ke Kelvin
+    private double convertToKelvin(double value, String scale) {
+        switch (scale) {
+            case "Celcius":
+                return value + 273.15;
+            case "Fahrenheit":
+                return (value - 32) * 5 / 9 + 273.15;
+            case "Reamur":
+                return value * 5 / 4 + 273.15;
+            default:
+                return value;
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

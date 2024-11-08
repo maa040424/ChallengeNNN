@@ -4,10 +4,8 @@
  */
 package Tugas02;
 
-/**
- *
- * @author ASUS
- */
+import javax.swing.JOptionPane;
+
 public class KonversiSuhu extends javax.swing.JFrame {
 
     /**
@@ -15,8 +13,18 @@ public class KonversiSuhu extends javax.swing.JFrame {
      */
     public KonversiSuhu() {
         initComponents();
+        setupComboBox();
     }
 
+    private void setupComboBox() {
+        // Menambahkan opsi skala suhu awal di ComboBox
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("Celcius");
+        jComboBox1.addItem("Fahrenheit");
+        jComboBox1.addItem("Reamur");
+        jComboBox1.addItem("Kelvin");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

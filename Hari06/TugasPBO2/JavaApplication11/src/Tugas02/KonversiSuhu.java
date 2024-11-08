@@ -263,11 +263,42 @@ public class KonversiSuhu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonKonversiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKonversiActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Ambil nilai input suhu dari text field
+            double suhuAwal = Double.parseDouble(jTextFieldSuhu.getText());
+            String skalaAwal = (String) jComboBox1.getSelectedItem();
+            double hasilKonversi = 0.0;
+
+            // Tentukan skala suhu tujuan
+            if (jRadioButtonCelcius.isSelected()) {
+                hasilKonversi = convertToCelsius(suhuAwal, skalaAwal);
+            } else if (jRadioButtonFahrenheit.isSelected()) {
+                hasilKonversi = convertToFahrenheit(suhuAwal, skalaAwal);
+            } else if (jRadioButtonReamur.isSelected()) {
+                hasilKonversi = convertToReamur(suhuAwal, skalaAwal);
+            } else if (jRadioButtonKelvin.isSelected()) {
+                hasilKonversi = convertToKelvin(suhuAwal, skalaAwal);
+            } else {
+                JOptionPane.showMessageDialog(this, "Pilih skala suhu tujuan!");
+                return;
+            }
+
+            // Tampilkan hasil konversi
+            jTextFieldHasil.setText(String.format("%.2f", hasilKonversi));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Input tidak valid. Masukkan angka.");
+        }
     }//GEN-LAST:event_jButtonKonversiActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        // TODO add your handling code here:
+        // Membersihkan input dan output
+        jTextFieldSuhu.setText("");
+        jTextFieldHasil.setText("");
+        jComboBox1.setSelectedIndex(0);
+        jRadioButtonCelcius.setSelected(false);
+        jRadioButtonFahrenheit.setSelected(false);
+        jRadioButtonReamur.setSelected(false);
+        jRadioButtonKelvin.setSelected(false);
     }//GEN-LAST:event_jButtonClearActionPerformed
 
     /**

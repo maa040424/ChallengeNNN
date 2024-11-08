@@ -70,6 +70,15 @@ Pastikan **Java** sudah terinstal di sistem Anda. Ikuti langkah-langkah berikut 
    ```bash
    java PerhitunganHariApp
    ```
+## 📸 Screenshot Aplikasi
+
+Berikut adalah tampilan antarmuka aplikasi Penghitung Kata:
+
+![gambar](https://github.com/user-attachments/assets/4d51f882-4ae9-4dc7-a6a5-abf292107ca8)
+
+
+
+> Gambar di atas menunjukkan tampilan aplikasi setelah pengguna memasukkan teks dan menekan tombol "Hitung".
 
 ## 🧑‍💻 Penulis
 - Nama: **Muhammad Adam Alghifari**

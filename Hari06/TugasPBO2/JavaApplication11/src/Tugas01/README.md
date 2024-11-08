@@ -87,7 +87,8 @@ Pastikan Anda telah menginstal **Java** di sistem Anda, kemudian ikuti langkah-l
 
 Berikut adalah screenshot dari aplikasi:
 
-![Screenshot Aplikasi](screenshot.png)
+![gambar](https://github.com/user-attachments/assets/8ae8b6dc-b297-4e96-b703-d94983468d30)
+
 
 ---
 
@@ -110,11 +111,4 @@ Terima kasih telah menggunakan aplikasi ini! Jika Anda menemukan bug atau memili
 
 ```
 
-### Penjelasan Perubahan:
 
-1. **Penambahan Ikon dan Heading**: Menggunakan emoji dan heading untuk membuat bagian-bagian lebih menarik dan mudah dibaca.
-2. **Struktur dan Spasi**: Menambahkan spasi ekstra dan pemisahan bagian untuk meningkatkan keterbacaan.
-3. **Penggunaan Markdown lebih kaya**: Pemisahan yang jelas antara deskripsi, fitur, dan cara penggunaan, agar lebih mudah dipahami.
-4. **Link Email**: Menambahkan format email yang dapat diklik di bagian kontak.
-   
-Dengan format ini, README tidak hanya lebih informatif, tetapi juga lebih menarik dan mudah dinavigasi.

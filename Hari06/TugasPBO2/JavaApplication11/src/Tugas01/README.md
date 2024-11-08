@@ -1,4 +1,4 @@
-```markdown
+
 # 📊 Aplikasi Cek Nomor Genap/Ganjil
 
 Aplikasi ini adalah program **Java** yang memungkinkan pengguna untuk memeriksa apakah suatu angka merupakan **genap** atau **ganjil**. Dengan antarmuka pengguna grafis (GUI) berbasis Java Swing, aplikasi ini menyediakan pengalaman pengguna yang sederhana dan mudah digunakan.

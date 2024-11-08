@@ -1,5 +1,3 @@
-Berikut adalah **README.md** yang dirancang untuk aplikasi **Konversi Suhu**:
-
 ```markdown
 # 🌡️ Aplikasi Konversi Suhu
 

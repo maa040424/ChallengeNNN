@@ -64,6 +64,7 @@ public class DiskonView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Program Hitung Diskon");
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));

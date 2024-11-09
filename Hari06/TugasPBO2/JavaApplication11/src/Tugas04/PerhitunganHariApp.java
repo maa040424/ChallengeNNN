@@ -84,14 +84,14 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
     }
    
    private void updateComboBoxSpinnerFromCalendar() {
-        // Mendapatkan nilai bulan dan tahun dari jCalendar
+        if (!isUpdating) {
         Calendar calendar = jCalendar1.getCalendar();
         int tahun = calendar.get(Calendar.YEAR);
         int bulan = calendar.get(Calendar.MONTH); // Januari = 0, Februari = 1, dst.
 
-        // Set nilai combo box dan spinner sesuai dengan jCalendar
         jSpinnerTahun.setValue(tahun);
         jComboBoxBulan.setSelectedIndex(bulan);
+    }
     }
    
    private void updateCalendar() {

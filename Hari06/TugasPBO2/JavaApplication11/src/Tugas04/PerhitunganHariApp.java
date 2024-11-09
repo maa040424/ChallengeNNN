@@ -21,9 +21,7 @@ import java.beans.PropertyChangeListener;
  */
 public class PerhitunganHariApp extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PerhitunganHariApp
-     */
+    private boolean isUpdating = false;
     public PerhitunganHariApp() {
         initComponents();
          setUpComboBox();
@@ -39,36 +37,50 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
         }));
     }
    private void addListeners() {
-        // Listener untuk perubahan bulan
-        jComboBoxBulan.addActionListener(e -> updateCalendarFromComboBoxSpinner());
+         // Listener untuk perubahan bulan
+    jComboBoxBulan.addActionListener(e -> {
+        if (!isUpdating) {
+            isUpdating = true;
+            updateCalendarFromComboBoxSpinner();
+            isUpdating = false;
+        }
+    });
 
-        // Listener untuk perubahan tahun
-        jSpinnerTahun.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
+    // Listener untuk perubahan tahun
+    jSpinnerTahun.addChangeListener(new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            if (!isUpdating) {
+                isUpdating = true;
                 updateCalendarFromComboBoxSpinner();
+                isUpdating = false;
             }
-        });
+        }
+    });
 
-        // Listener untuk perubahan tanggal di jCalendar
-        jCalendar1.addPropertyChangeListener("calendar", new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
+    // Listener untuk perubahan tanggal di jCalendar
+    jCalendar1.addPropertyChangeListener("calendar", new PropertyChangeListener() {
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            if (!isUpdating) {
+                isUpdating = true;
                 updateComboBoxSpinnerFromCalendar();
+                isUpdating = false;
             }
-        });
+        }
+    });
     }
    private void updateCalendarFromComboBoxSpinner() {
-        // Mendapatkan nilai bulan dan tahun dari combo box dan spinner
+        if (!isUpdating) {
         int bulan = jComboBoxBulan.getSelectedIndex(); // Januari = 0, Februari = 1, dst.
         int tahun = (int) jSpinnerTahun.getValue();
-
-        // Set tanggal di jCalendar sesuai bulan dan tahun yang dipilih
+        
         Calendar calendar = jCalendar1.getCalendar();
         calendar.set(Calendar.YEAR, tahun);
         calendar.set(Calendar.MONTH, bulan);
         calendar.set(Calendar.DAY_OF_MONTH, 1); // Set ke hari pertama bulan
         jCalendar1.setCalendar(calendar);
+    }
     }
    
    private void updateComboBoxSpinnerFromCalendar() {

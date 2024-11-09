@@ -288,50 +288,66 @@ public class AplikasiCekCuaca extends javax.swing.JFrame {
     }//GEN-LAST:event_ClearActionPerformed
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-         try {
+      try {
+        // Mendapatkan direktori kerja saat ini (folder proyek)
+        String currentDirectory = System.getProperty("user.dir");
+        
+        // Menentukan path file CSV
+        String filePath = currentDirectory + "/cuaca.csv";
 
-        FileWriter csvWriter = new FileWriter("cuaca.csv");
+        FileWriter csvWriter = new FileWriter(filePath);
 
         csvWriter.append("Kota,Suhu (°C),Cuaca,Deskripsi\n");
-
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         for (int i = 0; i < model.getRowCount(); i++) {
-
             for (int j = 0; j < model.getColumnCount(); j++) {
-
                 csvWriter.append(model.getValueAt(i, j).toString());
-
                 if (j < model.getColumnCount() - 1) {
-
                     csvWriter.append(",");
-
                 }
-
             }
-
             csvWriter.append("\n");
-
         }
 
         csvWriter.flush();
-
         csvWriter.close();
 
-        JOptionPane.showMessageDialog(this, "Data berhasil disimpan ke cuaca.csv");
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan ke " + filePath);
 
     } catch (IOException e) {
-
         e.printStackTrace();
-
         JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke CSV.");
-
     }
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jButtonFavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFavActionPerformed
-       
+// Ambil teks dari jTextFieldKota
+    String kota = jTextFieldKota.getText().trim();
+
+    // Periksa apakah kota tidak kosong
+    if (!kota.isEmpty()) {
+        // Periksa apakah kota sudah ada di dalam jComboBox1
+        boolean kotaSudahAda = false;
+        for (int i = 0; i < jComboBox1.getItemCount(); i++) {
+            if (jComboBox1.getItemAt(i).equalsIgnoreCase(kota)) {
+                kotaSudahAda = true;
+                break;
+            }
+        }
+
+        // Jika kota belum ada, tambahkan ke dalam jComboBox1
+        if (!kotaSudahAda) {
+            jComboBox1.addItem(kota);
+            JOptionPane.showMessageDialog(this, "Kota " + kota + " berhasil ditambahkan ke favorit.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Kota " + kota + " sudah ada di daftar favorit.");
+        }
+    } else {
+        // Jika jTextFieldKota kosong
+        JOptionPane.showMessageDialog(this, "Silakan masukkan nama kota terlebih dahulu.");
+    }       
     }//GEN-LAST:event_jButtonFavActionPerformed
 
     private WeatherData getWeatherData(String kota) {

@@ -9,6 +9,11 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.util.Calendar;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  *
@@ -23,6 +28,7 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
         initComponents();
          setUpComboBox();
          setResizable(false);
+         addListeners();
     }
 
    private void setUpComboBox() {
@@ -31,6 +37,62 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
             "Januari", "Februari", "Maret", "April", "Mei", "Juni",
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
         }));
+    }
+   private void addListeners() {
+        // Listener untuk perubahan bulan
+        jComboBoxBulan.addActionListener(e -> updateCalendarFromComboBoxSpinner());
+
+        // Listener untuk perubahan tahun
+        jSpinnerTahun.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                updateCalendarFromComboBoxSpinner();
+            }
+        });
+
+        // Listener untuk perubahan tanggal di jCalendar
+        jCalendar1.addPropertyChangeListener("calendar", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                updateComboBoxSpinnerFromCalendar();
+            }
+        });
+    }
+   private void updateCalendarFromComboBoxSpinner() {
+        // Mendapatkan nilai bulan dan tahun dari combo box dan spinner
+        int bulan = jComboBoxBulan.getSelectedIndex(); // Januari = 0, Februari = 1, dst.
+        int tahun = (int) jSpinnerTahun.getValue();
+
+        // Set tanggal di jCalendar sesuai bulan dan tahun yang dipilih
+        Calendar calendar = jCalendar1.getCalendar();
+        calendar.set(Calendar.YEAR, tahun);
+        calendar.set(Calendar.MONTH, bulan);
+        calendar.set(Calendar.DAY_OF_MONTH, 1); // Set ke hari pertama bulan
+        jCalendar1.setCalendar(calendar);
+    }
+   
+   private void updateComboBoxSpinnerFromCalendar() {
+        // Mendapatkan nilai bulan dan tahun dari jCalendar
+        Calendar calendar = jCalendar1.getCalendar();
+        int tahun = calendar.get(Calendar.YEAR);
+        int bulan = calendar.get(Calendar.MONTH); // Januari = 0, Februari = 1, dst.
+
+        // Set nilai combo box dan spinner sesuai dengan jCalendar
+        jSpinnerTahun.setValue(tahun);
+        jComboBoxBulan.setSelectedIndex(bulan);
+    }
+   
+   private void updateCalendar() {
+        // Mendapatkan nilai bulan dan tahun dari combo box dan spinner
+        int bulan = jComboBoxBulan.getSelectedIndex(); // Januari = 0, Februari = 1, dst.
+        int tahun = (int) jSpinnerTahun.getValue();
+
+        // Set tanggal di jCalendar sesuai bulan dan tahun yang dipilih
+        Calendar calendar = jCalendar1.getCalendar();
+        calendar.set(Calendar.YEAR, tahun);
+        calendar.set(Calendar.MONTH, bulan);
+        calendar.set(Calendar.DAY_OF_MONTH, 1); // Set ke hari pertama bulan
+        jCalendar1.setCalendar(calendar);
     }
     
     

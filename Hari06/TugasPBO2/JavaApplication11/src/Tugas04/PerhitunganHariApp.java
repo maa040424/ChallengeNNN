@@ -106,7 +106,18 @@ public class PerhitunganHariApp extends javax.swing.JFrame {
         calendar.set(Calendar.DAY_OF_MONTH, 1); // Set ke hari pertama bulan
         jCalendar1.setCalendar(calendar);
     }
-    
+    private String translateDayToIndonesian(java.time.DayOfWeek dayOfWeek) {
+    switch (dayOfWeek) {
+        case MONDAY: return "Senin";
+        case TUESDAY: return "Selasa";
+        case WEDNESDAY: return "Rabu";
+        case THURSDAY: return "Kamis";
+        case FRIDAY: return "Jumat";
+        case SATURDAY: return "Sabtu";
+        case SUNDAY: return "Minggu";
+        default: return dayOfWeek.toString();
+    }
+}
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -253,8 +264,8 @@ boolean tahunKabisat = Year.isLeap(tahun);
 
 // Menampilkan hasil pada jTextArea1
 jTextArea1.setText("Jumlah hari di bulan " + jComboBoxBulan.getSelectedItem() + " " + tahun + ": " + jumlahHari + "\n");
-jTextArea1.append("Hari pertama: " + tanggalPertama.getDayOfWeek() + "\n");
-jTextArea1.append("Hari terakhir: " + tanggalTerakhir.getDayOfWeek() + "\n");
+jTextArea1.append("Hari pertama: " + translateDayToIndonesian(tanggalPertama.getDayOfWeek()) + "\n");
+jTextArea1.append("Hari terakhir: " + translateDayToIndonesian(tanggalTerakhir.getDayOfWeek()) + "\n");
 
 // Menampilkan informasi apakah tahun tersebut adalah kabisat atau bukan
 jTextArea1.append("Tahun " + tahun + (tahunKabisat ? " adalah tahun kabisat.\n" : " bukan tahun kabisat.\n"));

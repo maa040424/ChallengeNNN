@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONObject;
+import javax.swing.JFileChooser;
 
 public class AplikasiCekCuaca extends javax.swing.JFrame {
 
@@ -288,37 +289,52 @@ public class AplikasiCekCuaca extends javax.swing.JFrame {
     }//GEN-LAST:event_ClearActionPerformed
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-      try {
-        // Mendapatkan direktori kerja saat ini (folder proyek)
-        String currentDirectory = System.getProperty("user.dir");
-        
-        // Menentukan path file CSV
-        String filePath = currentDirectory + "/cuaca.csv";
-
-        FileWriter csvWriter = new FileWriter(filePath);
-
-        csvWriter.append("Kota,Suhu (°C),Cuaca,Deskripsi\n");
-
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
-        for (int i = 0; i < model.getRowCount(); i++) {
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                csvWriter.append(model.getValueAt(i, j).toString());
-                if (j < model.getColumnCount() - 1) {
-                    csvWriter.append(",");
-                }
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Pilih Lokasi dan Nama File untuk Menyimpan");
+    
+    // Set filter file ke .csv saja
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("CSV files", "csv"));
+    
+    int userSelection = fileChooser.showSaveDialog(this);
+    
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        try {
+            // Mendapatkan file yang dipilih user
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            
+            // Tambahkan ekstensi .csv jika belum ada
+            if (!filePath.endsWith(".csv")) {
+                filePath += ".csv";
             }
-            csvWriter.append("\n");
+            
+            // Buat FileWriter untuk file yang dipilih
+            FileWriter csvWriter = new FileWriter(filePath);
+            
+            // Tulis header CSV
+            csvWriter.append("Kota,Suhu (°C),Cuaca,Deskripsi\n");
+
+            // Ambil data dari tabel dan simpan ke CSV
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for (int i = 0; i < model.getRowCount(); i++) {
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    csvWriter.append(model.getValueAt(i, j).toString());
+                    if (j < model.getColumnCount() - 1) {
+                        csvWriter.append(",");
+                    }
+                }
+                csvWriter.append("\n");
+            }
+
+            // Tutup FileWriter
+            csvWriter.flush();
+            csvWriter.close();
+
+            JOptionPane.showMessageDialog(this, "Data berhasil disimpan ke " + filePath);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke CSV.");
         }
-
-        csvWriter.flush();
-        csvWriter.close();
-
-        JOptionPane.showMessageDialog(this, "Data berhasil disimpan ke " + filePath);
-
-    } catch (IOException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke CSV.");
     }
     }//GEN-LAST:event_jButtonSaveActionPerformed
 

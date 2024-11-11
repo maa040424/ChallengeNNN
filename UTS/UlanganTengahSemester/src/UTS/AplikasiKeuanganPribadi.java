@@ -1,12 +1,15 @@
 
 package UTS;
 
+import java.awt.Graphics2D;
 import org.jdesktop.swingx.painter.ImagePainter;
 import javax.imageio.ImageIO;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
 
@@ -17,20 +20,42 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
         initComponents();
          setPanelBackground();
          setPanelBannerBackground();
+         
+          // Tambahkan listener ke jXPanel2 untuk memastikan gambar diubah sesuai ukuran panel
+        jXPanel2.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setPanelBannerBackground();  // Atur ulang gambar saat panel diubah ukurannya
+            }
+        });
+         
     }
 
     private void setPanelBackground() {
-        try {
-            // Ganti path di bawah ini dengan lokasi gambar Anda
+       try {
             Image backgroundImage = ImageIO.read(new File("E:/ChallengeNNN/UTS/Asset/BG.jpg"));
             ImagePainter painter = new ImagePainter((BufferedImage) backgroundImage);
-            painter.setScaleToFit(true);  // Mengatur agar gambar menyesuaikan ukuran panel
+            painter.setScaleToFit(true);
             jXPanel1.setBackgroundPainter(painter);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
+    private void setPanelBannerBackground() {
+        try {
+            BufferedImage originalImage = ImageIO.read(new File("E:/ChallengeNNN/UTS/Asset/Banner.jpg"));
+            BufferedImage resizedImage = new BufferedImage(jXPanel2.getWidth(), jXPanel2.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = resizedImage.createGraphics();
+            g2d.drawImage(originalImage, 0, 0, jXPanel2.getWidth(), jXPanel2.getHeight(), null);
+            g2d.dispose();
+            
+            ImagePainter bannerPainter = new ImagePainter(resizedImage);
+            jXPanel2.setBackgroundPainter(bannerPainter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,15 +68,17 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jXPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 3), "Uang Bulan Ini"));
+
         javax.swing.GroupLayout jXPanel2Layout = new javax.swing.GroupLayout(jXPanel2);
         jXPanel2.setLayout(jXPanel2Layout);
         jXPanel2Layout.setHorizontalGroup(
             jXPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 387, Short.MAX_VALUE)
+            .addGap(0, 373, Short.MAX_VALUE)
         );
         jXPanel2Layout.setVerticalGroup(
             jXPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 103, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jXPanel1Layout = new javax.swing.GroupLayout(jXPanel1);
@@ -64,7 +91,7 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
             jXPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jXPanel1Layout.createSequentialGroup()
                 .addComponent(jXPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 384, Short.MAX_VALUE))
+                .addGap(0, 444, Short.MAX_VALUE))
         );
 
         getContentPane().add(jXPanel1, java.awt.BorderLayout.CENTER);

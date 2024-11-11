@@ -74,6 +74,7 @@
                     </LineBorder>
                   </Border>
                   <Font PropertyName="font" name="Yu Gothic UI Light" size="14" style="1"/>
+                  <Color PropertyName="color" blue="0" green="0" red="0" type="rgb"/>
                 </TitledBorder>
               </Border>
             </Property>

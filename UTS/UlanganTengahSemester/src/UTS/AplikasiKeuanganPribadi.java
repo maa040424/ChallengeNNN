@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.ImageIcon;
 
 public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
 
@@ -18,6 +19,7 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
      */
     public AplikasiKeuanganPribadi() {
         initComponents();
+        
          
          setPanelBannerBackground();
          
@@ -100,23 +102,26 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
         jXPanel3.setBackground(new java.awt.Color(204, 255, 255));
         jXPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
 
-        jXButtonLaporan.setText("Laporan");
+        jXButtonLaporan.setBackground(new java.awt.Color(255, 255, 255));
+        jXButtonLaporan.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jXButtonLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UTS/laporan.png"))); // NOI18N
+        jXButtonLaporan.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jXPanel3Layout = new javax.swing.GroupLayout(jXPanel3);
         jXPanel3.setLayout(jXPanel3Layout);
         jXPanel3Layout.setHorizontalGroup(
             jXPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jXPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jXPanel3Layout.setVerticalGroup(
             jXPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jXPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(25, 25, 25)
                 .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addContainerGap(291, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jXPanel1Layout = new javax.swing.GroupLayout(jXPanel1);

@@ -20,7 +20,7 @@ public class CatatanKeuanganPribadi extends JFrame{
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         topPanel.add(titleLabel);
-        
+        //apalah
         // Tabs untuk Bulan
         JPanel tabsPanel = new JPanel(new FlowLayout());
         tabsPanel.setBackground(Color.WHITE);

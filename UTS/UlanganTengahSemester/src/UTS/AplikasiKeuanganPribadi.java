@@ -66,10 +66,10 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
         jXButtonLaporan = new org.jdesktop.swingx.JXButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Aplikasi Keuangan Pribadi");
 
         jXPanel2.setBackground(new java.awt.Color(0, 204, 255));
         jXPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 3), "Uang Bulan Ini", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Light", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        jXPanel2.setPreferredSize(new java.awt.Dimension(534, 105));
 
         jLabelUangBulanIni.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jLabelUangBulanIni.setForeground(new java.awt.Color(255, 255, 255));
@@ -82,14 +82,14 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
             .addGroup(jXPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelUangBulanIni, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addContainerGap(351, Short.MAX_VALUE))
         );
         jXPanel2Layout.setVerticalGroup(
             jXPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jXPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelUangBulanIni)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jXButtonLaporan.setText("Laporan");
@@ -98,19 +98,19 @@ public class AplikasiKeuanganPribadi extends javax.swing.JFrame {
         jXPanel1.setLayout(jXPanel1Layout);
         jXPanel1Layout.setHorizontalGroup(
             jXPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jXPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jXPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
             .addGroup(jXPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(40, 40, 40)
                 .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jXPanel1Layout.setVerticalGroup(
             jXPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jXPanel1Layout.createSequentialGroup()
-                .addComponent(jXPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jXPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 453, Short.MAX_VALUE))
+                .addGap(0, 351, Short.MAX_VALUE))
         );
 
         getContentPane().add(jXPanel1, java.awt.BorderLayout.CENTER);

@@ -33,6 +33,9 @@ public class CatatanKeuanganPribadi extends JFrame{
         tabsPanel.add(btnBulanLalu);
         tabsPanel.add(btn3Bulan);
         
+        
+        
+        //confused
         // Panel Statistik
         JPanel statsPanel = new JPanel();
         statsPanel.setBackground(Color.WHITE);

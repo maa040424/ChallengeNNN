@@ -6,7 +6,7 @@ import java.awt.*;
 import javax.swing.border.LineBorder;
 
 public class CatatanKeuanganPribadi {
-    ublic CatatanKeuanganPribadi() {
+    public CatatanKeuanganPribadi() {
         setTitle("Catatan Keuangan Pribadi");
         setSize(400, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

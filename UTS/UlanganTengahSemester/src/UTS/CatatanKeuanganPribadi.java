@@ -35,7 +35,7 @@ public class CatatanKeuanganPribadi extends JFrame{
         
         
         
-        //confused
+        
         // Panel Statistik
         JPanel statsPanel = new JPanel();
         statsPanel.setBackground(Color.WHITE);

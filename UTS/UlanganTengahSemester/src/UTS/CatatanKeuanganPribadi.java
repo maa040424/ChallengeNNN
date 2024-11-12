@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.LineBorder;
 
-public class CatatanKeuanganPribadi {
+public class CatatanKeuanganPribadi extends JFrame{
     public CatatanKeuanganPribadi() {
         setTitle("Catatan Keuangan Pribadi");
         setSize(400, 600);

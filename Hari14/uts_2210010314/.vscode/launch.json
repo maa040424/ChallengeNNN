@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "uts_2210010314",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "uts_2210010314 (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "uts_2210010314 (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "uts_2210010314 (Flutter Web Edge)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main.dart",
+            "args": [
+                "-d",
+                "edge"
+            ]
+        }
+    ]
+}

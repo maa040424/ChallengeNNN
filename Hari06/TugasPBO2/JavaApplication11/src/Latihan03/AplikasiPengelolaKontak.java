@@ -1,6 +1,12 @@
 
 package Latihan03;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class AplikasiPengelolaKontak extends javax.swing.JFrame {
 

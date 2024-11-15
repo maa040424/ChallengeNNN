@@ -9,10 +9,120 @@ import javax.swing.table.DefaultTableModel;
 
 public class AplikasiPengelolaKontak extends javax.swing.JFrame {
     
-    
+    private Connection conn;
+    private DefaultTableModel model;
     
     public AplikasiPengelolaKontak() {
         initComponents();
+        connectToDatabase();
+        loadData();
+    jComboBoxKategori.addItem("Teman");
+    jComboBoxKategori.addItem("Keluarga");
+    jComboBoxKategori.addItem("Kerja");
+    jComboBoxKategori.addItem("Lainnya");
+    }
+    
+    private void connectToDatabase() {
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:kontak.db");
+            System.out.println("Koneksi ke database berhasil");
+            // Membuat tabel jika belum ada
+            Statement stmt = conn.createStatement();
+            String createTableSQL = "CREATE TABLE IF NOT EXISTS kontak (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "nama TEXT, " +
+                    "noTelp TEXT, " +
+                    "kategori TEXT)";
+            stmt.execute(createTableSQL);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Tidak dapat terhubung ke database: " + e.getMessage());
+        }
+    }
+    
+    private void loadData() {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM kontak");
+
+            // Set the table model
+            model = new DefaultTableModel(new String[]{"Nama", "No Telp", "Kategori"}, 0);
+            while (rs.next()) {
+                model.addRow(new Object[]{rs.getString("nama"), rs.getString("noTelp"), rs.getString("kategori")});
+            }
+            jTable1.setModel(model);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Gagal memuat data: " + e.getMessage());
+        }
+    }
+
+    private void tambahKontak() {
+        try {
+            String nama = jTextFieldNama.getText();
+            String noTelp = jTextFieldNoTelp.getText();
+            String kategori = jComboBoxKategori.getSelectedItem().toString();
+
+            String sql = "INSERT INTO kontak (nama, noTelp, kategori) VALUES (?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, nama);
+            pstmt.setString(2, noTelp);
+            pstmt.setString(3, kategori);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Kontak berhasil ditambahkan!");
+            loadData();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menambah kontak: " + e.getMessage());
+        }
+    }
+    
+     private void editKontak() {
+        try {
+            String nama = jTextFieldNama.getText();
+            String noTelp = jTextFieldNoTelp.getText();
+            String kategori = jComboBoxKategori.getSelectedItem().toString();
+
+            int row = jTable1.getSelectedRow();
+            if (row != -1) {
+                String selectedNama = model.getValueAt(row, 0).toString();
+                String selectedNoTelp = model.getValueAt(row, 1).toString();
+
+                String sql = "UPDATE kontak SET nama = ?, noTelp = ?, kategori = ? WHERE nama = ? AND noTelp = ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, nama);
+                pstmt.setString(2, noTelp);
+                pstmt.setString(3, kategori);
+                pstmt.setString(4, selectedNama);
+                pstmt.setString(5, selectedNoTelp);
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Kontak berhasil diubah!");
+                loadData();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengubah kontak: " + e.getMessage());
+        }
+    }
+     
+    private void hapusKontak() {
+        try {
+            int row = jTable1.getSelectedRow();
+            if (row != -1) {
+                String nama = model.getValueAt(row, 0).toString();
+                String noTelp = model.getValueAt(row, 1).toString();
+
+                String sql = "DELETE FROM kontak WHERE nama = ? AND noTelp = ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, nama);
+                pstmt.setString(2, noTelp);
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Kontak berhasil dihapus!");
+                loadData();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menghapus kontak: " + e.getMessage());
+        }
+    }
+    
+     private void simpanData() {
+        loadData(); // Refresh data after any changes
     }
 
     
@@ -218,19 +328,19 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahActionPerformed
-        // TODO add your handling code here:
+         tambahKontak();
     }//GEN-LAST:event_jButtonTambahActionPerformed
 
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
-        // TODO add your handling code here:
+         editKontak();
     }//GEN-LAST:event_jButtonEditActionPerformed
 
     private void jButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHapusActionPerformed
-        // TODO add your handling code here:
+        hapusKontak();
     }//GEN-LAST:event_jButtonHapusActionPerformed
 
     private void jButtonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimpanActionPerformed
-        // TODO add your handling code here:
+        simpanData();
     }//GEN-LAST:event_jButtonSimpanActionPerformed
 
     

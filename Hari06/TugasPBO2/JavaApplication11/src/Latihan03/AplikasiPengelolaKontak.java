@@ -483,11 +483,15 @@ jButtonSimpan.setEnabled(false);
     }//GEN-LAST:event_jTextFieldNoTelpKeyTyped
 
     private void jButtonEksporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEksporActionPerformed
-        // TODO add your handling code here:
+        SImpan simpan = new SImpan();
+        String filepath = "kontak.csv"; //menyimpan kontak ke csv
+        simpan.exportToCSV(jTable1, filepath );
     }//GEN-LAST:event_jButtonEksporActionPerformed
 
     private void jButtonImporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImporActionPerformed
-        // TODO add your handling code here:
+        SImpan simpan = new SImpan();
+        String filepath = "kontak.csv";
+        simpan.importFromCSV(jTable1, filepath);
     }//GEN-LAST:event_jButtonImporActionPerformed
 
     

@@ -247,6 +247,8 @@ jButtonSimpan.setEnabled(false);
         jTable1 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldCari = new javax.swing.JTextField();
+        jButtonEkspor = new javax.swing.JButton();
+        jButtonImpor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -395,6 +397,20 @@ jButtonSimpan.setEnabled(false);
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Cari Berdasarkan Nama atau Nomor Telp :");
 
+        jButtonEkspor.setText("Ekspor ke CSV");
+        jButtonEkspor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEksporActionPerformed(evt);
+            }
+        });
+
+        jButtonImpor.setText("Impor dari CSV");
+        jButtonImpor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImporActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -404,13 +420,17 @@ jButtonSimpan.setEnabled(false);
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonEkspor, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonImpor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(51, 51, 51))
         );
         jPanel2Layout.setVerticalGroup(
@@ -423,7 +443,11 @@ jButtonSimpan.setEnabled(false);
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEkspor)
+                    .addComponent(jButtonImpor))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 560, 490));
@@ -457,6 +481,14 @@ jButtonSimpan.setEnabled(false);
         JOptionPane.showMessageDialog(null, "Hanya angka yang diperbolehkan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_jTextFieldNoTelpKeyTyped
+
+    private void jButtonEksporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEksporActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEksporActionPerformed
+
+    private void jButtonImporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImporActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonImporActionPerformed
 
     
     public static void main(String args[]) {
@@ -493,7 +525,9 @@ jButtonSimpan.setEnabled(false);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEdit;
+    private javax.swing.JButton jButtonEkspor;
     private javax.swing.JButton jButtonHapus;
+    private javax.swing.JButton jButtonImpor;
     private javax.swing.JButton jButtonSimpan;
     private javax.swing.JButton jButtonTambah;
     private javax.swing.JComboBox<String> jComboBoxKategori;

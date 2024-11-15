@@ -16,11 +16,96 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         initComponents();
         connectToDatabase();
         loadData();
+    
+    
+     
+        
+    jTextFieldCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+    @Override
+    public void insertUpdate(javax.swing.event.DocumentEvent e) {
+        cariKontak();
+    }
+    
+    @Override
+    public void removeUpdate(javax.swing.event.DocumentEvent e) {
+        cariKontak();
+    }
+    
+    @Override
+    public void changedUpdate(javax.swing.event.DocumentEvent e) {
+        cariKontak();
+    }
+});
+    
+    jTable1.getSelectionModel().addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+    @Override
+    public void valueChanged(javax.swing.event.ListSelectionEvent e) {
+        // Mengecek apakah ada baris yang dipilih
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            // Jika ada row yang dipilih, aktifkan tombol
+            jButtonEdit.setEnabled(true);
+            jButtonHapus.setEnabled(true);
+            jButtonSimpan.setEnabled(true);
+        } else {
+            // Jika tidak ada row yang dipilih, nonaktifkan tombol
+            jButtonEdit.setEnabled(false);
+            jButtonHapus.setEnabled(false);
+            jButtonSimpan.setEnabled(false);
+        }
+    }
+});
+jTable1.getSelectionModel().addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+    @Override
+    public void valueChanged(javax.swing.event.ListSelectionEvent e) {
+        int row = jTable1.getSelectedRow();  // Mendapatkan row yang dipilih
+        if (row != -1) {
+            // Jika ada row yang dipilih, ambil data dari tabel dan tampilkan di jTextField
+            String nama = model.getValueAt(row, 0).toString();  // Nama berada di kolom 0
+            String noTelp = model.getValueAt(row, 1).toString();  // Nomor Telepon berada di kolom 1
+            String kategori = model.getValueAt(row, 2).toString();  // Kategori berada di kolom 2
+            
+            // Menampilkan data ke dalam text field dan combo box
+            jTextFieldNama.setText(nama);
+            jTextFieldNoTelp.setText(noTelp);
+            jComboBoxKategori.setSelectedItem(kategori);  // Menyesuaikan kategori yang dipilih
+        }
+    }
+});
+jButtonEdit.setEnabled(false);
+jButtonHapus.setEnabled(false);
+jButtonSimpan.setEnabled(false);
     jComboBoxKategori.addItem("Teman");
     jComboBoxKategori.addItem("Keluarga");
     jComboBoxKategori.addItem("Kerja");
     jComboBoxKategori.addItem("Lainnya");
     }
+    
+    private void cariKontak() {
+    String keyword = jTextFieldCari.getText().trim();
+    if (keyword.isEmpty()) {
+        loadData(); // Jika kolom pencarian kosong, tampilkan semua data
+    } else {
+        try {
+            // Mencari berdasarkan nama atau nomor telepon
+            String query = "SELECT * FROM kontak WHERE nama LIKE ? OR noTelp LIKE ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, "%" + keyword + "%");
+            pstmt.setString(2, "%" + keyword + "%");
+            ResultSet rs = pstmt.executeQuery();
+
+            // Clear table terlebih dahulu sebelum memuat data baru
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                model.addRow(new Object[]{rs.getString("nama"), rs.getString("noTelp"), rs.getString("kategori")});
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencari kontak: " + e.getMessage());
+        }
+    }
+}
     
     private void connectToDatabase() {
         try {
@@ -75,50 +160,64 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
     }
     
      private void editKontak() {
-        try {
-            String nama = jTextFieldNama.getText();
-            String noTelp = jTextFieldNoTelp.getText();
-            String kategori = jComboBoxKategori.getSelectedItem().toString();
+         try {
+        String nama = jTextFieldNama.getText();
+        String noTelp = jTextFieldNoTelp.getText();
+        String kategori = jComboBoxKategori.getSelectedItem().toString();
 
-            int row = jTable1.getSelectedRow();
-            if (row != -1) {
-                String selectedNama = model.getValueAt(row, 0).toString();
-                String selectedNoTelp = model.getValueAt(row, 1).toString();
+        int row = jTable1.getSelectedRow(); // Ambil row yang dipilih
+        if (row != -1) {
+            String selectedNama = model.getValueAt(row, 0).toString();
+            String selectedNoTelp = model.getValueAt(row, 1).toString();
 
-                String sql = "UPDATE kontak SET nama = ?, noTelp = ?, kategori = ? WHERE nama = ? AND noTelp = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, nama);
-                pstmt.setString(2, noTelp);
-                pstmt.setString(3, kategori);
-                pstmt.setString(4, selectedNama);
-                pstmt.setString(5, selectedNoTelp);
-                pstmt.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Kontak berhasil diubah!");
-                loadData();
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal mengubah kontak: " + e.getMessage());
+            // Query untuk update kontak berdasarkan nama dan nomor telepon
+            String sql = "UPDATE kontak SET nama = ?, noTelp = ?, kategori = ? WHERE nama = ? AND noTelp = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, nama);
+            pstmt.setString(2, noTelp);
+            pstmt.setString(3, kategori);
+            pstmt.setString(4, selectedNama);
+            pstmt.setString(5, selectedNoTelp);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Kontak berhasil diubah!");
+            
+            // Mengosongkan form setelah data diubah
+            jTextFieldNama.setText("");  // Menghapus text di jTextFieldNama
+            jTextFieldNoTelp.setText("");  // Menghapus text di jTextFieldNoTelp
+            jComboBoxKategori.setSelectedIndex(0);  // Mengembalikan combo box ke indeks pertama
+            
+            loadData();  // Muat ulang data
         }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal mengubah kontak: " + e.getMessage());
+    }
     }
      
     private void hapusKontak() {
         try {
-            int row = jTable1.getSelectedRow();
-            if (row != -1) {
-                String nama = model.getValueAt(row, 0).toString();
-                String noTelp = model.getValueAt(row, 1).toString();
+        int row = jTable1.getSelectedRow(); // Ambil row yang dipilih
+        if (row != -1) {
+            String nama = model.getValueAt(row, 0).toString(); // Ambil nama dari tabel
+            String noTelp = model.getValueAt(row, 1).toString(); // Ambil nomor telepon dari tabel
 
-                String sql = "DELETE FROM kontak WHERE nama = ? AND noTelp = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, nama);
-                pstmt.setString(2, noTelp);
-                pstmt.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Kontak berhasil dihapus!");
-                loadData();
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menghapus kontak: " + e.getMessage());
+            // Query untuk menghapus kontak berdasarkan nama dan nomor telepon
+            String sql = "DELETE FROM kontak WHERE nama = ? AND noTelp = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, nama);
+            pstmt.setString(2, noTelp);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Kontak berhasil dihapus!");
+            
+            // Mengosongkan form setelah data dihapus
+            jTextFieldNama.setText("");  // Menghapus text di jTextFieldNama
+            jTextFieldNoTelp.setText("");  // Menghapus text di jTextFieldNoTelp
+            jComboBoxKategori.setSelectedIndex(0);  // Mengembalikan combo box ke indeks pertama
+            
+            loadData();  // Muat ulang data
         }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal menghapus kontak: " + e.getMessage());
+    }
     }
     
      private void simpanData() {
@@ -192,7 +291,11 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Kategori             :");
 
-        jComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextFieldNoTelp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNoTelpKeyTyped(evt);
+            }
+        });
 
         jButtonTambah.setText("Tambah");
         jButtonTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -342,6 +445,17 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
     private void jButtonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimpanActionPerformed
         simpanData();
     }//GEN-LAST:event_jButtonSimpanActionPerformed
+
+    private void jTextFieldNoTelpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNoTelpKeyTyped
+        char c = evt.getKeyChar(); // Mendapatkan karakter yang diketikkan
+
+    // Mengecek apakah karakter yang dimasukkan bukan angka
+    if (!Character.isDigit(c)) {
+        // Jika bukan angka, batalkan aksi (tidak memasukkan karakter)
+        evt.consume();
+        JOptionPane.showMessageDialog(null, "Hanya angka yang diperbolehkan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_jTextFieldNoTelpKeyTyped
 
     
     public static void main(String args[]) {

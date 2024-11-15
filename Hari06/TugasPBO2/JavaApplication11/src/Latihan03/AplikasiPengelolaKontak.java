@@ -24,9 +24,10 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         jTextFieldNama = new javax.swing.JTextField();
         jTextFieldNoTelp = new javax.swing.JTextField();
         jComboBoxKategori = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonTambah = new javax.swing.JButton();
+        jButtonEdit = new javax.swing.JButton();
+        jButtonHapus = new javax.swing.JButton();
+        jButtonSimpan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
@@ -77,11 +78,33 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
 
         jComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Tambah");
+        jButtonTambah.setText("Tambah");
+        jButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTambahActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Edit");
+        jButtonEdit.setText("Edit");
+        jButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Hapus");
+        jButtonHapus.setText("Hapus");
+        jButtonHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHapusActionPerformed(evt);
+            }
+        });
+
+        jButtonSimpan.setText("Simpan");
+        jButtonSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSimpanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -102,11 +125,13 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
                             .addComponent(jComboBoxKategori, 0, 290, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonHapus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -126,9 +151,10 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
                     .addComponent(jComboBoxKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonTambah)
+                    .addComponent(jButtonEdit)
+                    .addComponent(jButtonHapus)
+                    .addComponent(jButtonSimpan))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -185,6 +211,22 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTambahActionPerformed
+
+    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditActionPerformed
+
+    private void jButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHapusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonHapusActionPerformed
+
+    private void jButtonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimpanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSimpanActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -219,9 +261,10 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonEdit;
+    private javax.swing.JButton jButtonHapus;
+    private javax.swing.JButton jButtonSimpan;
+    private javax.swing.JButton jButtonTambah;
     private javax.swing.JComboBox<String> jComboBoxKategori;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

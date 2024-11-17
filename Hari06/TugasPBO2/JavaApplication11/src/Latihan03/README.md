@@ -2,6 +2,7 @@
 
 ## Deskripsi Program 📝
 
+
 Aplikasi Pengelolaan Kontak ini memungkinkan pengguna untuk menyimpan, mengelola, dan mengorganisir informasi kontak. Pengguna dapat menambahkan, mengedit, dan menghapus kontak yang tersimpan di database SQLite. Kontak dapat dikelompokkan berdasarkan kategori seperti **Keluarga**, **Teman**, atau **Kerja** yang dipilih melalui **JComboBox**.
 
 ### Fitur Utama 🔧:

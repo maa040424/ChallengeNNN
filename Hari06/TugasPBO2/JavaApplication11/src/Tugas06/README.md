@@ -1,5 +1,5 @@
----
 
+---
 ## 🌦️ Aplikasi Cek Cuaca
 
 **Aplikasi Cek Cuaca** adalah aplikasi **Java** berbasis GUI yang memungkinkan pengguna untuk memeriksa cuaca pada kota tertentu. Aplikasi ini memungkinkan Anda untuk memilih kota favorit, menambahkan kota baru ke favorit, serta menyimpan hasil data cuaca dalam bentuk file CSV untuk referensi di masa mendatang.

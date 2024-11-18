@@ -1,5 +1,6 @@
 # 💸 Aplikasi Perhitungan Diskon
 
+
 Aplikasi ini adalah program **Java** yang memudahkan pengguna dalam menghitung harga akhir setelah diskon dan mengestimasi penghematan berdasarkan harga asli dan persentase diskon. Dengan antarmuka pengguna grafis (GUI) berbasis **Java Swing**, aplikasi ini menawarkan kemudahan bagi pengguna untuk memasukkan harga, memilih diskon, dan mendapatkan hasil secara langsung.
 
 ---

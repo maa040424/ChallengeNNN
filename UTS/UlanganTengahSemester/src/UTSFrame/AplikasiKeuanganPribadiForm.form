@@ -81,13 +81,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jXButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jXButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jXButton3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -99,10 +97,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jXButton2" alignment="0" pref="66" max="32767" attributes="0"/>
-                          <Component id="jXButton1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jXButton3" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jXButton1" pref="66" max="32767" attributes="0"/>
+                          <Component id="jXButton2" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="21" max="32767" attributes="0"/>
                   </Group>
@@ -445,11 +442,6 @@
             <Component class="org.jdesktop.swingx.JXButton" name="jXButton2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Riwayat"/>
-              </Properties>
-            </Component>
-            <Component class="org.jdesktop.swingx.JXButton" name="jXButton3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Backup"/>
               </Properties>
             </Component>
           </SubComponents>

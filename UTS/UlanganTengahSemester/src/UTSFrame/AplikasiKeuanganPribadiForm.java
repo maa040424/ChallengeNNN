@@ -5,6 +5,7 @@ package UTSFrame;
 import java.awt.image.RenderedImage;
 import java.io.File;
 
+
 public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
     
@@ -221,6 +222,11 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jLabel6.setText("Riwayat");
 
         jXButtonLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/laporan.png"))); // NOI18N
+        jXButtonLaporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXButtonLaporanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -304,6 +310,10 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jXButtonLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButtonLaporanActionPerformed
+        
+    }//GEN-LAST:event_jXButtonLaporanActionPerformed
 
     
     public static void main(String args[]) {

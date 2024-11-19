@@ -45,6 +45,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jLabelSaldoUtama = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Aplikasi Keuangan Pribadi");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -212,6 +213,11 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         );
 
         jXButtonRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/riwayat.png"))); // NOI18N
+        jXButtonRiwayat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXButtonRiwayatActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(249, 247, 228));
@@ -312,8 +318,14 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jXButtonLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButtonLaporanActionPerformed
+        new LaporanForm().setVisible(true);
         
     }//GEN-LAST:event_jXButtonLaporanActionPerformed
+
+    private void jXButtonRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButtonRiwayatActionPerformed
+        new RiwayatForm().setVisible(true);
+        
+    }//GEN-LAST:event_jXButtonRiwayatActionPerformed
 
     
     public static void main(String args[]) {

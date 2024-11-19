@@ -32,8 +32,8 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jLabelPengeluaran = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabelPeriode = new javax.swing.JLabel();
-        jXButton1 = new org.jdesktop.swingx.JXButton();
-        jXButton2 = new org.jdesktop.swingx.JXButton();
+        jXButtonLaporan = new org.jdesktop.swingx.JXButton();
+        jXButtonRiwayat = new org.jdesktop.swingx.JXButton();
         jPanel2 = new javax.swing.JPanel();
         jLabelSaldoUtama = new javax.swing.JLabel();
 
@@ -204,14 +204,14 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jXButton1.setText("Laporan");
-        jXButton1.addActionListener(new java.awt.event.ActionListener() {
+        jXButtonLaporan.setText("Laporan");
+        jXButtonLaporan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButton1ActionPerformed(evt);
+                jXButtonLaporanActionPerformed(evt);
             }
         });
 
-        jXButton2.setText("Riwayat");
+        jXButtonRiwayat.setText("Riwayat");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -225,9 +225,9 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jXButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jXButtonRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(105, 105, 105))
         );
         jPanel1Layout.setVerticalGroup(
@@ -239,8 +239,8 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jXButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(jXButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jXButtonLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(jXButtonRiwayat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -288,10 +288,10 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
+    private void jXButtonLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButtonLaporanActionPerformed
         TesFrame tes = new TesFrame();
         tes.setVisible(true);
-    }//GEN-LAST:event_jXButton1ActionPerformed
+    }//GEN-LAST:event_jXButtonLaporanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,7 +349,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMain;
     private javax.swing.JTextField jTextFieldDeskripsi;
     private javax.swing.JTextField jTextFieldNominal;
-    private org.jdesktop.swingx.JXButton jXButton1;
-    private org.jdesktop.swingx.JXButton jXButton2;
+    private org.jdesktop.swingx.JXButton jXButtonLaporan;
+    private org.jdesktop.swingx.JXButton jXButtonRiwayat;
     // End of variables declaration//GEN-END:variables
 }

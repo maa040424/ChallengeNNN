@@ -2,11 +2,15 @@
 package UTSFrame;
 
 
+import java.awt.image.RenderedImage;
+import java.io.File;
+
 public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
     
     public AplikasiKeuanganPribadiForm() {
         initComponents();
+        
     }
 
     
@@ -17,13 +21,13 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jPanelMain = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldNominal = new javax.swing.JTextField();
         jTextFieldDeskripsi = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButtonTransaksi = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -32,8 +36,10 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jLabelPengeluaran = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabelPeriode = new javax.swing.JLabel();
-        jXButtonLaporan = new org.jdesktop.swingx.JXButton();
         jXButtonRiwayat = new org.jdesktop.swingx.JXButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jXButtonLaporan = new org.jdesktop.swingx.JXButton();
         jPanel2 = new javax.swing.JPanel();
         jLabelSaldoUtama = new javax.swing.JLabel();
 
@@ -49,10 +55,6 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(18, 45, 79));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(249, 247, 228), new java.awt.Color(249, 247, 228), new java.awt.Color(249, 247, 228), new java.awt.Color(249, 247, 228)));
 
-        jLabel1.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(249, 247, 228));
-        jLabel1.setText("Nominal        :");
-
         jLabel3.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(249, 247, 228));
         jLabel3.setText("Deskripsi     :");
@@ -67,6 +69,10 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jButtonTransaksi.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jButtonTransaksi.setText("Add Transaction");
 
+        jLabel4.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(249, 247, 228));
+        jLabel4.setText("Nominal        :");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -74,7 +80,6 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addGap(70, 70, 70)
@@ -84,14 +89,17 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                     .addComponent(jComboBox1, 0, 156, Short.MAX_VALUE)
                     .addComponent(jButtonTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(jLabel4)
+                    .addContainerGap(222, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldNominal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTextFieldNominal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -103,6 +111,11 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonTransaksi)
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(jLabel4)
+                    .addContainerGap(105, Short.MAX_VALUE)))
         );
 
         jPanel4.setBackground(new java.awt.Color(18, 45, 79));
@@ -117,7 +130,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
         jLabelPemasukan.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
         jLabelPemasukan.setForeground(new java.awt.Color(249, 247, 228));
-        jLabelPemasukan.setText("Rp.");
+        jLabelPemasukan.setText("+ Rp.");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -150,7 +163,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(249, 247, 228));
-        jLabel8.setText("RP.");
+        jLabel8.setText("- RP.");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -204,14 +217,17 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jXButtonLaporan.setText("Laporan");
-        jXButtonLaporan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButtonLaporanActionPerformed(evt);
-            }
-        });
+        jXButtonRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/riwayat.png"))); // NOI18N
 
-        jXButtonRiwayat.setText("Riwayat");
+        jLabel1.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(249, 247, 228));
+        jLabel1.setText("Laporan");
+
+        jLabel6.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(249, 247, 228));
+        jLabel6.setText("Riwayat");
+
+        jXButtonLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/laporan.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -224,11 +240,15 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jXButtonRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jXButtonLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jXButtonRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,9 +259,16 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jXButtonLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(jXButtonRiwayat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jXButtonRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jXButtonLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(249, 247, 228));
@@ -283,19 +310,12 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanelMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
+        getContentPane().add(jPanelMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jXButtonLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButtonLaporanActionPerformed
-        TesFrame tes = new TesFrame();
-        tes.setVisible(true);
-    }//GEN-LAST:event_jXButtonLaporanActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -334,7 +354,9 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelPemasukan;
     private javax.swing.JLabel jLabelPengeluaran;

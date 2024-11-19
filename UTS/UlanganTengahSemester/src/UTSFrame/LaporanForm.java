@@ -29,6 +29,7 @@ public class LaporanForm extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(249, 247, 228));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel1.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(18, 45, 79));
@@ -41,7 +42,7 @@ public class LaporanForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(164, 164, 164)
                 .addComponent(jLabel1)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -51,9 +52,10 @@ public class LaporanForm extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, -1));
 
         jPanel2.setBackground(new java.awt.Color(18, 45, 79));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(249, 247, 228), 4));
 
         jTable1.setBackground(new java.awt.Color(249, 247, 228));
         jTable1.setForeground(new java.awt.Color(18, 45, 79));
@@ -99,7 +101,7 @@ public class LaporanForm extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jTextFieldCome, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +117,7 @@ public class LaporanForm extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 580, 320));

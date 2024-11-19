@@ -72,7 +72,7 @@ public class LaporanForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel2.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(249, 247, 228));
         jLabel2.setText("Cari Berdasarkan Jenis");
 

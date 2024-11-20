@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Transaction {
@@ -65,7 +66,7 @@ public class Transaction {
             System.out.println("Gagal mengambil transaksi: " + e.getMessage());
         }
     }
-    public static double[] calculateSaldoFromDB() {
+   public static double[] calculateSaldoFromDB() {
     String sql = "SELECT jenis, nominal FROM transactions";
     double pemasukan = 0, pengeluaran = 0;
 
@@ -75,9 +76,9 @@ public class Transaction {
         while (rs.next()) {
             String jenis = rs.getString("jenis");
             double nominal = rs.getDouble("nominal");
-            if ("Pemasukan".equals(jenis)) {
+            if ("Pemasukan".equalsIgnoreCase(jenis)) {
                 pemasukan += nominal;
-            } else if ("Pengeluaran".equals(jenis)) {
+            } else if ("Pengeluaran".equalsIgnoreCase(jenis)) {
                 pengeluaran += nominal;
             }
         }
@@ -87,4 +88,26 @@ public class Transaction {
 
     return new double[]{pemasukan, pengeluaran, pemasukan - pengeluaran};
 }
+   
+   public static List<Transaction> getAllTransactions() {
+    List<Transaction> transactions = new ArrayList<>();
+    String sql = "SELECT jenis, deskripsi, nominal, tanggal FROM transactions";
+
+    try (Connection conn = KoneksiDB.connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+
+        while (rs.next()) {
+            transactions.add(new Transaction(
+                rs.getString("jenis"),
+                rs.getString("deskripsi"),
+                rs.getDouble("nominal")
+            ));
+        }
+    } catch (SQLException e) {
+        System.out.println("Gagal mengambil data transaksi: " + e.getMessage());
+    }
+    return transactions;
+}
+
 }

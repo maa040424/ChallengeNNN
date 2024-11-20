@@ -343,9 +343,10 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jXButtonRiwayatActionPerformed
 
     private void jButtonTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransaksiActionPerformed
-     String jenis = (String) jComboBoxJenis.getSelectedItem();
+    String jenis = (String) jComboBoxJenis.getSelectedItem();
     String deskripsi = jTextFieldDeskripsi.getText();
     double nominal;
+
     try {
         nominal = Double.parseDouble(jTextFieldNominal.getText());
         // Tambahkan transaksi ke database

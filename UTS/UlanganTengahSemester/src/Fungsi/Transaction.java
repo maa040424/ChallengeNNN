@@ -1,9 +1,15 @@
 
 package Fungsi;
+
+import Connection.KoneksiDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Transaction {
-    private String jenis;
+   private String jenis;
     private String deskripsi;
     private double nominal;
 
@@ -25,20 +31,39 @@ public class Transaction {
         return nominal;
     }
 
-    public static void addTransaction(String jenis, String deskripsi, double nominal, List<Transaction> transactions) {
-        transactions.add(new Transaction(jenis, deskripsi, nominal));
+    // Fungsi menambahkan transaksi ke database
+    public static void addTransactionToDB(String jenis, String deskripsi, double nominal) {
+        String sql = "INSERT INTO transactions (jenis, deskripsi, nominal) VALUES (?, ?, ?)";
+        try (Connection conn = KoneksiDB.connect(); 
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, jenis);
+            pstmt.setString(2, deskripsi);
+            pstmt.setDouble(3, nominal);
+            pstmt.executeUpdate();
+            System.out.println("Transaksi berhasil ditambahkan ke database.");
+        } catch (SQLException e) {
+            System.out.println("Gagal menambahkan transaksi: " + e.getMessage());
+        }
     }
 
-    public static double[] calculateSaldo(List<Transaction> transactions) {
-        double pemasukan = 0, pengeluaran = 0;
-        for (Transaction t : transactions) {
-            if ("Pemasukan".equals(t.getJenis())) {
-                pemasukan += t.getNominal();
-            } else if ("Pengeluaran".equals(t.getJenis())) {
-                pengeluaran += t.getNominal();
+    // Fungsi mengambil semua transaksi dari database
+    public static void getAllTransactions(List<Transaction> transactions) {
+        String sql = "SELECT jenis, deskripsi, nominal FROM transactions";
+        try (Connection conn = KoneksiDB.connect(); 
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                transactions.add(new Transaction(
+                    rs.getString("jenis"),
+                    rs.getString("deskripsi"),
+                    rs.getDouble("nominal")
+                ));
             }
+            System.out.println("Transaksi berhasil diambil dari database.");
+        } catch (SQLException e) {
+            System.out.println("Gagal mengambil transaksi: " + e.getMessage());
         }
-        return new double[]{pemasukan, pengeluaran, pemasukan - pengeluaran};
     }
     
 }

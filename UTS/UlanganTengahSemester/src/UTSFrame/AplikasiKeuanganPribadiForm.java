@@ -2,17 +2,22 @@
 package UTSFrame;
 
 
+
+import Fungsi.Transaction;
 import java.awt.image.RenderedImage;
 import java.io.File;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
-    
+    private List<Transaction> transactions = new ArrayList<>();
     public AplikasiKeuanganPribadiForm() {
-        initComponents();
-        
+        initComponents();   
     }
+    
+
 
     
     @SuppressWarnings("unchecked")
@@ -70,6 +75,11 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jButtonTransaksi.setBackground(new java.awt.Color(249, 247, 228));
         jButtonTransaksi.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jButtonTransaksi.setText("Add Transaction");
+        jButtonTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTransaksiActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(249, 247, 228));
@@ -89,8 +99,8 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldNominal)
                     .addComponent(jTextFieldDeskripsi)
-                    .addComponent(jComboBoxJenis, 0, 156, Short.MAX_VALUE)
-                    .addComponent(jButtonTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxJenis, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -134,7 +144,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelPemasukan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -154,29 +164,32 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
         jLabelPengeluaran.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
         jLabelPengeluaran.setForeground(new java.awt.Color(249, 247, 228));
-        jLabelPengeluaran.setText("Pengeluaran");
+        jLabelPengeluaran.setText("- Rp.");
 
         jLabel8.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(249, 247, 228));
-        jLabel8.setText("- RP.");
+        jLabel8.setText("Pengeluaran");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPengeluaran)
-                    .addComponent(jLabel8))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelPengeluaran))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel8)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabelPengeluaran)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelPengeluaran)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -287,7 +300,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelSaldoUtama, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,6 +340,35 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jXButtonRiwayatActionPerformed
 
+    private void jButtonTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransaksiActionPerformed
+         String jenis = (String) jComboBoxJenis.getSelectedItem();
+    String deskripsi = jTextFieldDeskripsi.getText();
+    double nominal;
+    try {
+        nominal = Double.parseDouble(jTextFieldNominal.getText());
+        // Tambahkan transaksi ke daftar
+        Transaction.addTransaction(jenis, deskripsi, nominal, transactions);
+
+        // Perbarui saldo
+        updateSaldo();
+
+        // Reset form input
+        jTextFieldNominal.setText("");
+        jTextFieldDeskripsi.setText("");
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Nominal harus berupa angka!");
+    }
+    }//GEN-LAST:event_jButtonTransaksiActionPerformed
+
+    //Method Method
+    
+    //Method Update Saldo
+    private void updateSaldo() {
+    double[] saldoData = Transaction.calculateSaldo(transactions);
+    jLabelPemasukan.setText("+ Rp. " + saldoData[0]);
+    jLabelPengeluaran.setText("- Rp. " + saldoData[1]);
+    jLabelSaldoUtama.setText("Rp. " + saldoData[2]);
+}
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -3,6 +3,7 @@ package UTSFrame;
 
 
 
+import Connection.KoneksiDB;
 import Fungsi.Transaction;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -397,6 +398,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                KoneksiDB.setupDatabase();
                 new AplikasiKeuanganPribadiForm().setVisible(true);
             }
         });

@@ -109,5 +109,15 @@ public class Transaction {
     }
     return transactions;
 }
+   public static void deleteTransactionByDeskripsi(String deskripsi) {
+    String sql = "DELETE FROM transactions WHERE deskripsi = ?";
+    try (Connection conn = KoneksiDB.connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, deskripsi);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println("Gagal menghapus transaksi: " + e.getMessage());
+    }
+}
 
 }

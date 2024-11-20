@@ -133,7 +133,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(249, 247, 228));
         jLabel5.setText("Pemasukan");
 
-        jLabelPemasukan.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
+        jLabelPemasukan.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         jLabelPemasukan.setForeground(new java.awt.Color(249, 247, 228));
         jLabelPemasukan.setText("+ Rp.");
 
@@ -162,7 +162,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(18, 45, 79));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(249, 247, 228), 2));
 
-        jLabelPengeluaran.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
+        jLabelPengeluaran.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         jLabelPengeluaran.setForeground(new java.awt.Color(249, 247, 228));
         jLabelPengeluaran.setText("- Rp.");
 
@@ -289,7 +289,7 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(249, 247, 228));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(255, 255, 255)), "Saldo Utama :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Algerian", 0, 14), new java.awt.Color(18, 45, 79))); // NOI18N
 
-        jLabelSaldoUtama.setFont(new java.awt.Font("Algerian", 1, 18)); // NOI18N
+        jLabelSaldoUtama.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         jLabelSaldoUtama.setForeground(new java.awt.Color(18, 45, 79));
         jLabelSaldoUtama.setText("Rp.");
 

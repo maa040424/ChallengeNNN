@@ -38,6 +38,7 @@ public class RiwayatForm extends javax.swing.JFrame {
         jTextAreaRiwayat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(249, 247, 228));

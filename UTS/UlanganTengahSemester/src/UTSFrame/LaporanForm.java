@@ -2,8 +2,10 @@
 package UTSFrame;
 
 import Fungsi.Transaction;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +24,14 @@ public class LaporanForm extends javax.swing.JFrame {
         initComponents();
         loadTransactionsToTable(); // Menampilkan data saat form dibuka
         loadTableWithDate(); //menambahkan tanggal realtime
+        
+        // Menambahkan listener untuk pencarian
+        jTextFieldCari.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            jTextFieldCariKeyReleased(evt);
+        }
+    });
+        
     }
 
     
@@ -42,6 +52,7 @@ public class LaporanForm extends javax.swing.JFrame {
         jButtonHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(249, 247, 228));
@@ -129,30 +140,28 @@ public class LaporanForm extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 79, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(59, 59, 59)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -164,7 +173,7 @@ public class LaporanForm extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButtonHapus)
                     .addComponent(jButton3))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 730, 410));
@@ -213,6 +222,7 @@ public class LaporanForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //untuk menyimpan Laporan keuangan
         try {
         javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
         fileChooser.setDialogTitle("Simpan Laporan");
@@ -228,7 +238,7 @@ public class LaporanForm extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
+//fungsi fungsi nya   
 private void importDataFromCSV(File file) throws IOException {
     try (BufferedReader br = new BufferedReader(new FileReader(file))) {
         String line;
@@ -247,28 +257,39 @@ private void importDataFromCSV(File file) throws IOException {
     }
 }
 private void saveTableToCSV(File file) throws IOException {
+     // Ambil model tabel dari jTable1
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+    // Membuka BufferedWriter untuk menulis data ke file
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+        // Loop melalui semua baris di tabel
         for (int i = 0; i < model.getRowCount(); i++) {
+            // Loop melalui semua kolom di baris tertentu
             for (int j = 0; j < model.getColumnCount(); j++) {
+                // Tulis nilai dari sel ke file
                 bw.write(model.getValueAt(i, j).toString());
-                if (j < model.getColumnCount() - 1) bw.write(", ");
+                
+                // Tambahkan koma sebagai pemisah kecuali untuk kolom terakhir
+                if (j < model.getColumnCount() - 1) {
+                    bw.write(", ");
+                }
             }
+            // Pindah ke baris baru setelah semua kolom selesai
             bw.newLine();
         }
-    }
+    } // BufferedWriter akan otomatis ditutup di sini karena digunakan dalam try-with-resources
 }
     
 private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {
-    String searchKeyword = jTextFieldCari.getText().toLowerCase();
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+   String searchKeyword = jTextFieldCari.getText().toLowerCase(); // Ambil kata kunci pencarian
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); // Ambil model tabel
+    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model); // Gunakan sorter
     jTable1.setRowSorter(sorter);
 
     if (searchKeyword.trim().length() == 0) {
-        sorter.setRowFilter(null);
+        sorter.setRowFilter(null); // Tidak ada filter jika input kosong
     } else {
-        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchKeyword));
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchKeyword)); // Filter berdasarkan input
     }
 }
 

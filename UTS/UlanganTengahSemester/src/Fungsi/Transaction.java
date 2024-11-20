@@ -119,5 +119,19 @@ public class Transaction {
         System.out.println("Gagal menghapus transaksi: " + e.getMessage());
     }
 }
+   
+   public static void importTransaction(String jenis, String deskripsi, double nominal, String tanggal) {
+    String sql = "INSERT INTO transactions (jenis, deskripsi, nominal, tanggal) VALUES (?, ?, ?, ?)";
+    try (Connection conn = KoneksiDB.connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, jenis);
+        pstmt.setString(2, deskripsi);
+        pstmt.setDouble(3, nominal);
+        pstmt.setString(4, tanggal);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println("Gagal mengimpor transaksi: " + e.getMessage());
+    }
+}
 
 }

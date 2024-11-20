@@ -1,12 +1,20 @@
 
 package UTSFrame;
 
+import Fungsi.Transaction;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.table.DefaultTableModel;
+
 
 public class LaporanForm extends javax.swing.JFrame {
 
     
     public LaporanForm() {
         initComponents();
+        loadTransactionsToTable(); // Menampilkan data saat form dibuka
     }
 
     
@@ -137,7 +145,15 @@ public class LaporanForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+private void loadTransactionsToTable() {
+    List<Transaction> transactions = Transaction.getAllTransactions();
+    DefaultTableModel model = new DefaultTableModel(new Object[]{"Jenis", "Deskripsi", "Nominal", "Tanggal"}, 0);
     
+    for (Transaction t : transactions) {
+        model.addRow(new Object[]{t.getJenis(), t.getDeskripsi(), t.getNominal()});
+    }
+    jTable1.setModel(model);
+}
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {

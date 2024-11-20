@@ -173,17 +173,17 @@ private void loadTransactionsToTable() {
 }
 
     private void loadTableWithDate() {
-    // Format tanggal
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
+     // Format tanggal dengan lokal Indonesia
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", new java.util.Locale("id", "ID"));
     String tanggalHariIni = LocalDateTime.now().format(formatter);
 
     // Header tabel
-    String[] columns = {"Tanggal: " + tanggalHariIni, "Jenis", "Deskripsi", "Nominal"};
+    String[] columns = {"Tanggal", "Jenis", "Deskripsi", "Nominal"};
     DefaultTableModel model = new DefaultTableModel(columns, 0);
 
-    // Tambahkan data (contoh dummy atau dari database)
-    model.addRow(new Object[]{"", "Pemasukan", "Gaji", 5000000});
-    model.addRow(new Object[]{"", "Pengeluaran", "Belanja", 2000000});
+    // Contoh data (Anda bisa mengganti ini dengan data dari database)
+    model.addRow(new Object[]{tanggalHariIni, "Pemasukan", "Gaji", 5000000});
+    model.addRow(new Object[]{tanggalHariIni, "Pengeluaran", "Belanja", 2000000});
 
     jTable1.setModel(model);
 }

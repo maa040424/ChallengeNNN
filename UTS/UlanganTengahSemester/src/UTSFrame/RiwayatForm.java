@@ -6,6 +6,8 @@ package UTSFrame;
 
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,9 +19,7 @@ import javax.swing.JOptionPane; // Jika Anda menggunakan dialog
 import Connection.KoneksiDB; // import KoneksiDB.java dari folder Connection
 public class RiwayatForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RiwayatForm
-     */
+    
     public RiwayatForm() {
         initComponents();
          loadRiwayatToTextArea(); // Menampilkan riwayat saat form dibuka
@@ -116,18 +116,19 @@ public class RiwayatForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void loadRiwayatToTextArea() {
-      String sql = "SELECT aktivitas, timestamp FROM history";
+   String sql = "SELECT aktivitas, timestamp FROM history";
+
     try (Connection conn = KoneksiDB.connect();
          PreparedStatement pstmt = conn.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery()) {
 
-        System.out.println("Mengambil data riwayat...");
         while (rs.next()) {
             String aktivitas = rs.getString("aktivitas");
             String timestamp = rs.getString("timestamp");
-            System.out.println(timestamp + " - " + aktivitas); // Debug log
             jTextAreaRiwayat.append(timestamp + " - " + aktivitas + "\n");
+            jTextAreaRiwayat.append("=====================\n"); // Garis pemisah
         }
+
     } catch (SQLException e) {
         System.out.println("Gagal mengambil data riwayat: " + e.getMessage());
     }

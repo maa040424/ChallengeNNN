@@ -76,8 +76,10 @@ public class LaporanForm extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(249, 247, 228));
         jLabel2.setText("Cari Berdasarkan Jenis");
 
+        jButton2.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         jButton2.setText("Ekspor");
 
+        jButton3.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         jButton3.setText("Kembali");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +87,7 @@ public class LaporanForm extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         jButton4.setText("Impor");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -122,7 +125,7 @@ public class LaporanForm extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 580, 320));

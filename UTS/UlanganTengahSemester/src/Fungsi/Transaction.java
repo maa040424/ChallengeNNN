@@ -65,5 +65,26 @@ public class Transaction {
             System.out.println("Gagal mengambil transaksi: " + e.getMessage());
         }
     }
-    
+    public static double[] calculateSaldoFromDB() {
+    String sql = "SELECT jenis, nominal FROM transactions";
+    double pemasukan = 0, pengeluaran = 0;
+
+    try (Connection conn = KoneksiDB.connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+        while (rs.next()) {
+            String jenis = rs.getString("jenis");
+            double nominal = rs.getDouble("nominal");
+            if ("Pemasukan".equals(jenis)) {
+                pemasukan += nominal;
+            } else if ("Pengeluaran".equals(jenis)) {
+                pengeluaran += nominal;
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Gagal menghitung saldo: " + e.getMessage());
+    }
+
+    return new double[]{pemasukan, pengeluaran, pemasukan - pengeluaran};
+}
 }

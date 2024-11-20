@@ -15,7 +15,8 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
 
     private List<Transaction> transactions = new ArrayList<>();
     public AplikasiKeuanganPribadiForm() {
-        initComponents();   
+        initComponents();
+         updateSaldo(); // Perbarui saldo saat aplikasi dimulai
     }
     
 
@@ -342,15 +343,15 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jXButtonRiwayatActionPerformed
 
     private void jButtonTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransaksiActionPerformed
-         String jenis = (String) jComboBoxJenis.getSelectedItem();
+     String jenis = (String) jComboBoxJenis.getSelectedItem();
     String deskripsi = jTextFieldDeskripsi.getText();
     double nominal;
     try {
         nominal = Double.parseDouble(jTextFieldNominal.getText());
-        // Tambahkan transaksi ke daftar
-        Transaction.addTransaction(jenis, deskripsi, nominal, transactions);
+        // Tambahkan transaksi ke database
+        Transaction.addTransactionToDB(jenis, deskripsi, nominal);
 
-        // Perbarui saldo
+        // Perbarui saldo dari database
         updateSaldo();
 
         // Reset form input
@@ -365,10 +366,11 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     
     //Method Update Saldo
     private void updateSaldo() {
-    double[] saldoData = Transaction.calculateSaldo(transactions);
-    jLabelPemasukan.setText("+ Rp. " + saldoData[0]);
-    jLabelPengeluaran.setText("- Rp. " + saldoData[1]);
-    jLabelSaldoUtama.setText("Rp. " + saldoData[2]);
+        
+    double[] saldoData = Transaction.calculateSaldoFromDB(); // Mengambil data saldo dari database
+    jLabelPemasukan.setText("+ Rp. " + saldoData[0]); // Menampilkan pemasukan
+    jLabelPengeluaran.setText("- Rp. " + saldoData[1]); // Menampilkan pengeluaran
+    jLabelSaldoUtama.setText("Rp. " + saldoData[2]); // Menampilkan saldo utama
 }
     
     public static void main(String args[]) {

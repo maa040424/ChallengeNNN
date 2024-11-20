@@ -15,6 +15,7 @@ public class LaporanForm extends javax.swing.JFrame {
     public LaporanForm() {
         initComponents();
         loadTransactionsToTable(); // Menampilkan data saat form dibuka
+        loadTableWithDate(); //menambahkan tanggal realtime
     }
 
     
@@ -32,6 +33,7 @@ public class LaporanForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButtonHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -98,6 +100,14 @@ public class LaporanForm extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         jButton4.setText("Impor");
 
+        jButtonHapus.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
+        jButtonHapus.setText("Hapus");
+        jButtonHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHapusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -107,6 +117,8 @@ public class LaporanForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -131,8 +143,9 @@ public class LaporanForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(jButtonHapus)
+                    .addComponent(jButton3))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -145,6 +158,10 @@ public class LaporanForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHapusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonHapusActionPerformed
+
 private void loadTransactionsToTable() {
     List<Transaction> transactions = Transaction.getAllTransactions();
     DefaultTableModel model = new DefaultTableModel(new Object[]{"Jenis", "Deskripsi", "Nominal", "Tanggal"}, 0);
@@ -154,6 +171,23 @@ private void loadTransactionsToTable() {
     }
     jTable1.setModel(model);
 }
+
+    private void loadTableWithDate() {
+    // Format tanggal
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
+    String tanggalHariIni = LocalDateTime.now().format(formatter);
+
+    // Header tabel
+    String[] columns = {"Tanggal: " + tanggalHariIni, "Jenis", "Deskripsi", "Nominal"};
+    DefaultTableModel model = new DefaultTableModel(columns, 0);
+
+    // Tambahkan data (contoh dummy atau dari database)
+    model.addRow(new Object[]{"", "Pemasukan", "Gaji", 5000000});
+    model.addRow(new Object[]{"", "Pengeluaran", "Belanja", 2000000});
+
+    jTable1.setModel(model);
+}
+    
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -162,11 +196,13 @@ private void loadTransactionsToTable() {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonHapus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

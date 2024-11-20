@@ -31,7 +31,7 @@ public class RiwayatForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaRiwayat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -72,12 +72,12 @@ public class RiwayatForm extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(18, 45, 79));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(249, 247, 228));
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jTextAreaRiwayat.setEditable(false);
+        jTextAreaRiwayat.setBackground(new java.awt.Color(18, 45, 79));
+        jTextAreaRiwayat.setColumns(20);
+        jTextAreaRiwayat.setForeground(new java.awt.Color(249, 247, 228));
+        jTextAreaRiwayat.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaRiwayat);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -152,6 +152,6 @@ public class RiwayatForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaRiwayat;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,14 +12,21 @@ import java.util.ArrayList;
 
 
 public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
-
+    
+    private RiwayatForm riwayatForm;  
+    private LaporanForm laporanForm;  
     private List<Transaction> transactions = new ArrayList<>();
+    
     public AplikasiKeuanganPribadiForm() {
         initComponents();
+        initForms();
          updateSaldo(); // Perbarui saldo saat aplikasi dimulai
     }
     
-
+     private void initForms() {  
+        riwayatForm = new RiwayatForm();  
+        laporanForm = new LaporanForm();  
+    }  
 
     
     @SuppressWarnings("unchecked")
@@ -343,24 +350,30 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jXButtonRiwayatActionPerformed
 
     private void jButtonTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransaksiActionPerformed
-    String jenis = (String) jComboBoxJenis.getSelectedItem();
-    String deskripsi = jTextFieldDeskripsi.getText();
-    double nominal;
+     String jenis = (String) jComboBoxJenis.getSelectedItem();  
+    String deskripsi = jTextFieldDeskripsi.getText();  
+    double nominal;  
 
-    try {
-        nominal = Double.parseDouble(jTextFieldNominal.getText());
-        // Tambahkan transaksi ke database
-        Transaction.addTransactionToDB(jenis, deskripsi, nominal);
+    try {  
+        nominal = Double.parseDouble(jTextFieldNominal.getText());  
+        // Tambahkan transaksi ke database  
+        Transaction.addTransactionToDB(jenis, deskripsi, nominal);  
 
-        // Perbarui saldo dari database
-        updateSaldo();
+        riwayatForm.updateRiwayat();  // Memperbarui riwayat  
+        laporanForm.updateLaporan();   // Memperbarui laporan  
+        // Perbarui saldo dari database  
+        updateSaldo();  
 
-        // Reset form input
-        jTextFieldNominal.setText("");
-        jTextFieldDeskripsi.setText("");
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(null, "Nominal harus berupa angka!");
-    }
+        // Perbarui tampilan di form riwayat dan laporan  
+        riwayatForm.updateRiwayat();  // Pastikan riwayatForm diinisialisasi sebelumnya  
+        laporanForm.updateLaporan();   // Pastikan laporanForm diinisialisasi sebelumnya  
+
+        // Reset form input  
+        jTextFieldNominal.setText("");  
+        jTextFieldDeskripsi.setText("");  
+    } catch (NumberFormatException e) {  
+        javax.swing.JOptionPane.showMessageDialog(null, "Nominal harus berupa angka!");  
+    }  
     }//GEN-LAST:event_jButtonTransaksiActionPerformed
 
     //Method Method

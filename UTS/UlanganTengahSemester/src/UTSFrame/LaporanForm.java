@@ -1,6 +1,7 @@
 
 package UTSFrame;
 
+import Fungsi.Report;
 import Fungsi.Transaction;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -315,6 +316,11 @@ private void loadTransactionsToTable() {
     // Contoh data (Anda bisa mengganti ini dengan data dari database)
 
     jTable1.setModel(model);
+}
+    public void updateLaporan() {  
+    // Ambil data laporan terbaru  
+    List<Report> laporan = Report.getLatestReports();  
+    // Update tampilan pada JTable atau komponen yang relevan  
 }
     
     public static void main(String args[]) {

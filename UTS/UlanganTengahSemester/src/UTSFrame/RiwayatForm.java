@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 
 
 import Connection.KoneksiDB; // import KoneksiDB.java dari folder Connection
+import Fungsi.Transaction;
+import java.util.List;
 public class RiwayatForm extends javax.swing.JFrame {
 
     
@@ -140,6 +142,11 @@ public class RiwayatForm extends javax.swing.JFrame {
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Gagal mengambil data riwayat: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+    public void updateRiwayat() {  
+    // Ambil data transaksi terbaru  
+    List<Transaction> transaksi = Transaction.getAllTransactions();  
+    // Update tampilan pada JTable atau komponen yang relevan  
 }
 
     

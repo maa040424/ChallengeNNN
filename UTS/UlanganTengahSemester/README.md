@@ -65,8 +65,8 @@ Aplikasi ini dirancang untuk membantu pengguna dalam mengelola keuangan pribadi,
 
 ## Penulis
 
-- **Nama**: [Masukkan Nama Anda]
-- **NPM**: [Masukkan NPM Anda]
+- **Nama**: Muhammad Adam Alghifari
+- **NPM**: 2210010314
 
 ---
 

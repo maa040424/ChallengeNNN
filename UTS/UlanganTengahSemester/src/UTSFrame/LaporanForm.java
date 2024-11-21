@@ -197,37 +197,59 @@ public class LaporanForm extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButtonHapusActionPerformed
 
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-    fileChooser.setDialogTitle("Pilih File CSV");
-    int userSelection = fileChooser.showOpenDialog(this);
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        String line;
+        int rowCountBefore = model.getRowCount();
 
-    if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        try {
-            importDataFromCSV(selectedFile);
-            loadTransactionsToTable(); // Perbarui tabel setelah impor
-            javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diimpor dari: " + selectedFile.getAbsolutePath());
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengimpor data: " + e.getMessage());
+        while ((line = br.readLine()) != null) {
+            String[] values = line.split(","); // Asumsikan data dipisahkan dengan koma
+            if (values.length == model.getColumnCount()) { // Pastikan kolom sesuai dengan tabel
+                String jenis = values[0].trim();
+                String deskripsi = values[1].trim();
+                double nominal = Double.parseDouble(values[2].trim());
+                String tanggal = values[3].trim();
+
+                // Tambahkan ke jTable
+                model.addRow(new Object[]{jenis, deskripsi, nominal, tanggal});
+
+                // Opsional: Tambahkan ke database
+                Transaction.importTransaction(jenis, deskripsi, nominal, tanggal);
+            } else {
+                System.out.println("Baris tidak valid, diabaikan: " + line);
+            }
         }
+
+        // Cek apakah ada data yang ditambahkan
+        if (model.getRowCount() > rowCountBefore) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diimpor dari CSV.");
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Tidak ada data baru yang diimpor.");
+        }
+    } catch (NumberFormatException | IOException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Kesalahan saat membaca file CSV: " + e.getMessage());
     }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //untuk menyimpan Laporan keuangan
-        try {
-        javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-        fileChooser.setDialogTitle("Simpan Laporan");
-        int userSelection = fileChooser.showSaveDialog(this);
+      javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+    fileChooser.setDialogTitle("Simpan Laporan sebagai CSV");
+    int userSelection = fileChooser.showSaveDialog(this);
 
-        if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
+    if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+        File fileToSave = fileChooser.getSelectedFile();
+        // Tambahkan ekstensi .csv jika belum ada
+        if (!fileToSave.getAbsolutePath().endsWith(".csv")) {
+            fileToSave = new File(fileToSave.getAbsolutePath() + ".csv");
+        }
+        try {
             saveTableToCSV(fileToSave);
             javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diekspor ke: " + fileToSave.getAbsolutePath());
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengekspor data: " + e.getMessage());
         }
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengekspor data: " + e.getMessage());
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -276,27 +298,29 @@ public class LaporanForm extends javax.swing.JFrame {
     }
 }
     private void saveTableToCSV(File file) throws IOException {
-     // Ambil model tabel dari jTable1
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+   DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
-    // Membuka BufferedWriter untuk menulis data ke file
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-        // Loop melalui semua baris di tabel
-        for (int i = 0; i < model.getRowCount(); i++) {
-            // Loop melalui semua kolom di baris tertentu
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                // Tulis nilai dari sel ke file
-                bw.write(model.getValueAt(i, j).toString());
-                
-                // Tambahkan koma sebagai pemisah kecuali untuk kolom terakhir
-                if (j < model.getColumnCount() - 1) {
-                    bw.write(", ");
+        // Tulis header kolom
+        for (int col = 0; col < model.getColumnCount(); col++) {
+            bw.write(model.getColumnName(col));
+            if (col < model.getColumnCount() - 1) {
+                bw.write(","); // Pisahkan kolom dengan koma
+            }
+        }
+        bw.newLine(); // Pindah ke baris berikutnya
+
+        // Tulis data baris
+        for (int row = 0; row < model.getRowCount(); row++) {
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                bw.write(model.getValueAt(row, col).toString());
+                if (col < model.getColumnCount() - 1) {
+                    bw.write(","); // Pisahkan kolom dengan koma
                 }
             }
-            // Pindah ke baris baru setelah semua kolom selesai
-            bw.newLine();
+            bw.newLine(); // Pindah ke baris berikutnya setelah semua kolom selesai
         }
-    } // BufferedWriter akan otomatis ditutup di sini karena digunakan dalam try-with-resources
+    }
 }
     
     private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {

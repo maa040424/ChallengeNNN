@@ -117,21 +117,29 @@ public class RiwayatForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void loadRiwayatToTextArea() {
-   String sql = "SELECT aktivitas, timestamp FROM history";
-
+    String sql = "SELECT aktivitas FROM history"; // Sesuaikan dengan struktur tabel
     try (Connection conn = KoneksiDB.connect();
          PreparedStatement pstmt = conn.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery()) {
 
-        while (rs.next()) {
-            String aktivitas = rs.getString("aktivitas");
-            String timestamp = rs.getString("timestamp");
-            jTextAreaRiwayat.append(timestamp + " - " + aktivitas + "\n");
-            jTextAreaRiwayat.append("=====================\n"); // Garis pemisah
+        // Periksa apakah ada data
+        if (!rs.next()) {
+            jTextAreaRiwayat.append("Tidak ada riwayat transaksi.\n");
+            return;
         }
 
+        // Reset JTextArea sebelum menambahkan data baru
+        jTextAreaRiwayat.setText("");
+
+        // Tambahkan data ke JTextArea
+        do {
+            String aktivitas = rs.getString("aktivitas");
+            jTextAreaRiwayat.append(aktivitas + "\n");
+            jTextAreaRiwayat.append("=====================\n"); // Garis pemisah
+        } while (rs.next());
+
     } catch (SQLException e) {
-        System.out.println("Gagal mengambil data riwayat: " + e.getMessage());
+        JOptionPane.showMessageDialog(this, "Gagal mengambil data riwayat: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 

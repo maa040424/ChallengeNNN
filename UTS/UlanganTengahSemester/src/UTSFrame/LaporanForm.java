@@ -199,38 +199,19 @@ public class LaporanForm extends javax.swing.JFrame {
 
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-        String line;
-        int rowCountBefore = model.getRowCount();
+    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+        fileChooser.setDialogTitle("Pilih File CSV untuk Diimpor");
+        int userSelection = fileChooser.showOpenDialog(this);
 
-        while ((line = br.readLine()) != null) {
-            String[] values = line.split(","); // Asumsikan data dipisahkan dengan koma
-            if (values.length == model.getColumnCount()) { // Pastikan kolom sesuai dengan tabel
-                String jenis = values[0].trim();
-                String deskripsi = values[1].trim();
-                double nominal = Double.parseDouble(values[2].trim());
-                String tanggal = values[3].trim();
-
-                // Tambahkan ke jTable
-                model.addRow(new Object[]{jenis, deskripsi, nominal, tanggal});
-
-                // Opsional: Tambahkan ke database
-                Transaction.importTransaction(jenis, deskripsi, nominal, tanggal);
-            } else {
-                System.out.println("Baris tidak valid, diabaikan: " + line);
+        if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+                importDataFromCSV(selectedFile);
+                javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diimpor.");
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengimpor data: " + e.getMessage());
             }
         }
-
-        // Cek apakah ada data yang ditambahkan
-        if (model.getRowCount() > rowCountBefore) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diimpor dari CSV.");
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Tidak ada data baru yang diimpor.");
-        }
-    } catch (NumberFormatException | IOException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Kesalahan saat membaca file CSV: " + e.getMessage());
-    }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -266,61 +247,62 @@ public class LaporanForm extends javax.swing.JFrame {
 }
     
     private void importDataFromCSV(File file) throws IOException {
+     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
     try (BufferedReader br = new BufferedReader(new FileReader(file))) {
         String line;
+        int lineNumber = 0;
+
         while ((line = br.readLine()) != null) {
-            String[] values = line.split(","); // Asumsikan data dipisahkan dengan koma
+            lineNumber++;
+            // Abaikan baris header jika ada
+            if (lineNumber == 1 && line.toLowerCase().contains("jenis")) {
+                continue; // Lewati baris pertama jika dianggap sebagai header
+            }
+
+            String[] values = line.split(","); // Gunakan koma sebagai delimiter
             if (values.length == 4) {
-                String jenis = values[0].trim();
-                String deskripsi = values[1].trim();
-                String nominalString = values[2].trim();
-                String tanggal = values[3].trim();
-
                 try {
-                    double nominal = Double.parseDouble(nominalString);
+                    String jenis = values[0].trim();
+                    String deskripsi = values[1].trim();
+                    double nominal = Double.parseDouble(values[2].trim());
+                    String tanggal = values[3].trim();
 
-                    // Validasi format tanggal jika perlu
-                    if (!tanggal.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
-                        throw new IllegalArgumentException("Format tanggal salah: " + tanggal);
-                    }
+                    // Tambahkan ke tabel
+                    model.addRow(new Object[]{jenis, deskripsi, nominal, tanggal});
 
-                    // Panggil fungsi untuk memasukkan data ke database
+                    // (Opsional) Tambahkan ke database
                     Transaction.importTransaction(jenis, deskripsi, nominal, tanggal);
                 } catch (NumberFormatException e) {
-                    System.out.println("Nominal tidak valid: " + nominalString);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Kesalahan data: " + e.getMessage());
+                    System.err.println("Kesalahan pada baris " + lineNumber + ": Nominal tidak valid");
+                } catch (Exception e) {
+                    System.err.println("Kesalahan tidak terduga pada baris " + lineNumber + ": " + e.getMessage());
                 }
             } else {
-                System.out.println("Baris CSV tidak valid: " + line);
+                System.err.println("Kesalahan pada baris " + lineNumber + ": Data tidak sesuai format");
             }
         }
+    } catch (IOException e) {
+        System.err.println("Gagal membaca file: " + e.getMessage());
+        throw e; // Teruskan exception agar dapat ditangani pada level lebih tinggi
     }
 }
     private void saveTableToCSV(File file) throws IOException {
-   DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-        // Tulis header kolom
-        for (int col = 0; col < model.getColumnCount(); col++) {
-            bw.write(model.getColumnName(col));
-            if (col < model.getColumnCount() - 1) {
-                bw.write(","); // Pisahkan kolom dengan koma
-            }
-        }
-        bw.newLine(); // Pindah ke baris berikutnya
-
-        // Tulis data baris
-        for (int row = 0; row < model.getRowCount(); row++) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (int col = 0; col < model.getColumnCount(); col++) {
-                bw.write(model.getValueAt(row, col).toString());
-                if (col < model.getColumnCount() - 1) {
-                    bw.write(","); // Pisahkan kolom dengan koma
-                }
+                bw.write(model.getColumnName(col));
+                if (col < model.getColumnCount() - 1) bw.write(",");
             }
-            bw.newLine(); // Pindah ke baris berikutnya setelah semua kolom selesai
+            bw.newLine();
+            for (int row = 0; row < model.getRowCount(); row++) {
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    bw.write(model.getValueAt(row, col).toString());
+                    if (col < model.getColumnCount() - 1) bw.write(",");
+                }
+                bw.newLine();
+            }
         }
-    }
 }
     
     private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {

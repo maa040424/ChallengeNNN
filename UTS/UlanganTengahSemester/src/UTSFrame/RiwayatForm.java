@@ -12,8 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane; // Jika Anda menggunakan dialog
+import javax.swing.JOptionPane; 
 
 
 import Connection.KoneksiDB; // import KoneksiDB.java dari folder Connection

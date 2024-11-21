@@ -313,8 +313,6 @@ private void loadTransactionsToTable() {
     DefaultTableModel model = new DefaultTableModel(columns, 0);
 
     // Contoh data (Anda bisa mengganti ini dengan data dari database)
-    model.addRow(new Object[]{tanggalHariIni, "Pemasukan", "Gaji", 5000000});
-    model.addRow(new Object[]{tanggalHariIni, "Pengeluaran", "Belanja", 2000000});
 
     jTable1.setModel(model);
 }

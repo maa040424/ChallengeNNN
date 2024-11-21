@@ -39,6 +39,7 @@ public class RiwayatForm extends javax.swing.JFrame {
         jTextAreaRiwayat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Riwayat Transaksi");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

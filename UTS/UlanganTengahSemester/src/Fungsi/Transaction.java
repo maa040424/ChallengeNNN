@@ -13,11 +13,13 @@ public class Transaction {
    private String jenis;
     private String deskripsi;
     private double nominal;
+    private String tanggal;
 
-    public Transaction(String jenis, String deskripsi, double nominal) {
+    public Transaction(String jenis, String deskripsi, double nominal, String tanggal) {
         this.jenis = jenis;
         this.deskripsi = deskripsi;
         this.nominal = nominal;
+        this.tanggal = tanggal;
     }
 
     public String getJenis() {
@@ -32,7 +34,10 @@ public class Transaction {
         return nominal;
     }
 
-    // Fungsi menambahkan transaksi ke database
+    public String getTanggal() {
+        return tanggal;
+    }
+
     public static void addTransactionToDB(String jenis, String deskripsi, double nominal) {
         String sql = "INSERT INTO transactions (jenis, deskripsi, nominal) VALUES (?, ?, ?)";
         try (Connection conn = KoneksiDB.connect(); 
@@ -47,10 +52,10 @@ public class Transaction {
         }
     }
 
-    // Fungsi mengambil semua transaksi dari database
-    public static void getAllTransactions(List<Transaction> transactions) {
-        String sql = "SELECT jenis, deskripsi, nominal FROM transactions";
-        try (Connection conn = KoneksiDB.connect(); 
+    public static List<Transaction> getAllTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+        String sql = "SELECT jenis, deskripsi, nominal, tanggal FROM transactions";
+        try (Connection conn = KoneksiDB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -58,80 +63,62 @@ public class Transaction {
                 transactions.add(new Transaction(
                     rs.getString("jenis"),
                     rs.getString("deskripsi"),
-                    rs.getDouble("nominal")
+                    rs.getDouble("nominal"),
+                    rs.getString("tanggal")
                 ));
             }
-            System.out.println("Transaksi berhasil diambil dari database.");
         } catch (SQLException e) {
-            System.out.println("Gagal mengambil transaksi: " + e.getMessage());
+            System.out.println("Gagal mengambil data transaksi: " + e.getMessage());
+        }
+        return transactions;
+    }
+
+    public static void deleteTransactionByDeskripsi(String deskripsi) {
+        String sql = "DELETE FROM transactions WHERE deskripsi = ?";
+        try (Connection conn = KoneksiDB.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, deskripsi);
+            pstmt.executeUpdate();
+            System.out.println("Transaksi berhasil dihapus.");
+        } catch (SQLException e) {
+            System.out.println("Gagal menghapus transaksi: " + e.getMessage());
         }
     }
-   public static double[] calculateSaldoFromDB() {
-    String sql = "SELECT jenis, nominal FROM transactions";
-    double pemasukan = 0, pengeluaran = 0;
 
-    try (Connection conn = KoneksiDB.connect();
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         ResultSet rs = pstmt.executeQuery()) {
-        while (rs.next()) {
-            String jenis = rs.getString("jenis");
-            double nominal = rs.getDouble("nominal");
-            if ("Pemasukan".equalsIgnoreCase(jenis)) {
-                pemasukan += nominal;
-            } else if ("Pengeluaran".equalsIgnoreCase(jenis)) {
-                pengeluaran += nominal;
+    public static double[] calculateSaldoFromDB() {
+        String sql = "SELECT jenis, nominal FROM transactions";
+        double pemasukan = 0, pengeluaran = 0;
+
+        try (Connection conn = KoneksiDB.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String jenis = rs.getString("jenis");
+                double nominal = rs.getDouble("nominal");
+                if ("Pemasukan".equalsIgnoreCase(jenis)) {
+                    pemasukan += nominal;
+                } else if ("Pengeluaran".equalsIgnoreCase(jenis)) {
+                    pengeluaran += nominal;
+                }
             }
+        } catch (SQLException e) {
+            System.out.println("Gagal menghitung saldo: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("Gagal menghitung saldo: " + e.getMessage());
+        return new double[]{pemasukan, pengeluaran, pemasukan - pengeluaran};
     }
 
-    return new double[]{pemasukan, pengeluaran, pemasukan - pengeluaran};
-}
-   
-   public static List<Transaction> getAllTransactions() {
-    List<Transaction> transactions = new ArrayList<>();
-    String sql = "SELECT jenis, deskripsi, nominal, tanggal FROM transactions";
-
-    try (Connection conn = KoneksiDB.connect();
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         ResultSet rs = pstmt.executeQuery()) {
-
-        while (rs.next()) {
-            transactions.add(new Transaction(
-                rs.getString("jenis"),
-                rs.getString("deskripsi"),
-                rs.getDouble("nominal")
-            ));
-        }
-    } catch (SQLException e) {
-        System.out.println("Gagal mengambil data transaksi: " + e.getMessage());
-    }
-    return transactions;
-}
-   public static void deleteTransactionByDeskripsi(String deskripsi) {
-    String sql = "DELETE FROM transactions WHERE deskripsi = ?";
-    try (Connection conn = KoneksiDB.connect();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1, deskripsi);
-        pstmt.executeUpdate();
-    } catch (SQLException e) {
-        System.out.println("Gagal menghapus transaksi: " + e.getMessage());
-    }
-}
-   
-   public static void importTransaction(String jenis, String deskripsi, double nominal, String tanggal) {
+    public static void importTransaction(String jenis, String deskripsi, double nominal, String tanggal) {
     String sql = "INSERT INTO transactions (jenis, deskripsi, nominal, tanggal) VALUES (?, ?, ?, ?)";
     try (Connection conn = KoneksiDB.connect();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, jenis);
         pstmt.setString(2, deskripsi);
         pstmt.setDouble(3, nominal);
-        pstmt.setString(4, tanggal);
+        pstmt.setString(4, tanggal); // Pastikan format tanggal sesuai dengan tipe di database
         pstmt.executeUpdate();
+        System.out.println("Transaksi berhasil diimpor: " + deskripsi);
     } catch (SQLException e) {
         System.out.println("Gagal mengimpor transaksi: " + e.getMessage());
     }
 }
-
 }

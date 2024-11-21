@@ -350,29 +350,28 @@ public class AplikasiKeuanganPribadiForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jXButtonRiwayatActionPerformed
 
     private void jButtonTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransaksiActionPerformed
-     String jenis = (String) jComboBoxJenis.getSelectedItem();  
-    String deskripsi = jTextFieldDeskripsi.getText();  
-    double nominal;  
+    String jenis = (String) jComboBoxJenis.getSelectedItem();
+    String deskripsi = jTextFieldDeskripsi.getText();
+    double nominal;
 
-    try {  
-        nominal = Double.parseDouble(jTextFieldNominal.getText());  
-        // Tambahkan transaksi ke database  
-        Transaction.addTransactionToDB(jenis, deskripsi, nominal);  
+    try {
+        nominal = Double.parseDouble(jTextFieldNominal.getText());
+        
+        // Tambahkan transaksi ke database
+        Transaction.addTransactionToDB(jenis, deskripsi, nominal);
 
-        riwayatForm.updateRiwayat();  // Memperbarui riwayat  
-        laporanForm.updateLaporan();   // Memperbarui laporan  
-        // Perbarui saldo dari database  
-        updateSaldo();  
+        // Perbarui saldo dari database
+        updateSaldo();
 
-        // Perbarui tampilan di form riwayat dan laporan  
-        riwayatForm.updateRiwayat();  // Pastikan riwayatForm diinisialisasi sebelumnya  
-        laporanForm.updateLaporan();   // Pastikan laporanForm diinisialisasi sebelumnya  
+        // Perbarui tampilan di form riwayat dan laporan
+        if (riwayatForm != null) riwayatForm.loadRiwayatToTextArea();
+        if (laporanForm != null) laporanForm.loadTransactionsToTable();
 
-        // Reset form input  
-        jTextFieldNominal.setText("");  
-        jTextFieldDeskripsi.setText("");  
-    } catch (NumberFormatException e) {  
-        javax.swing.JOptionPane.showMessageDialog(null, "Nominal harus berupa angka!");  
+        // Reset form input
+        jTextFieldNominal.setText("");
+        jTextFieldDeskripsi.setText("");
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Nominal harus berupa angka!");
     }  
     }//GEN-LAST:event_jButtonTransaksiActionPerformed
 

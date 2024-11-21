@@ -22,15 +22,8 @@ public class LaporanForm extends javax.swing.JFrame {
     
     public LaporanForm() {
         initComponents();
-        loadTransactionsToTable(); // Menampilkan data saat form dibuka
-        loadTableWithDate(); //menambahkan tanggal realtime
-        
-        // Menambahkan listener untuk pencarian
-        jTextFieldCari.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyReleased(java.awt.event.KeyEvent evt) {
-            jTextFieldCariKeyReleased(evt);
-        }
-    });
+        loadTransactionsToTable(); // Memuat data transaksi ke tabel
+        addSearchFilter(); // Menambahkan filter pencarian
         
     }
 
@@ -238,8 +231,19 @@ public class LaporanForm extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-//fungsi fungsi nya   
-private void importDataFromCSV(File file) throws IOException {
+//fungsi fungsi nya 
+   public void loadTransactionsToTable() {
+    List<Transaction> transactions = Transaction.getAllTransactions();
+    DefaultTableModel model = new DefaultTableModel(new Object[]{"Jenis", "Deskripsi", "Nominal", "Tanggal"}, 0);
+
+    for (Transaction t : transactions) {
+        model.addRow(new Object[]{t.getJenis(), t.getDeskripsi(), t.getNominal(), t.getTanggal()});
+    }
+
+    jTable1.setModel(model);
+}
+    
+    private void importDataFromCSV(File file) throws IOException {
     try (BufferedReader br = new BufferedReader(new FileReader(file))) {
         String line;
         while ((line = br.readLine()) != null) {
@@ -247,16 +251,31 @@ private void importDataFromCSV(File file) throws IOException {
             if (values.length == 4) {
                 String jenis = values[0].trim();
                 String deskripsi = values[1].trim();
-                double nominal = Double.parseDouble(values[2].trim());
-                String tanggal = values[3].trim(); // Format tanggal harus sesuai dengan database
+                String nominalString = values[2].trim();
+                String tanggal = values[3].trim();
 
-                // Masukkan data ke database
-                Transaction.importTransaction(jenis, deskripsi, nominal, tanggal);
+                try {
+                    double nominal = Double.parseDouble(nominalString);
+
+                    // Validasi format tanggal jika perlu
+                    if (!tanggal.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
+                        throw new IllegalArgumentException("Format tanggal salah: " + tanggal);
+                    }
+
+                    // Panggil fungsi untuk memasukkan data ke database
+                    Transaction.importTransaction(jenis, deskripsi, nominal, tanggal);
+                } catch (NumberFormatException e) {
+                    System.out.println("Nominal tidak valid: " + nominalString);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Kesalahan data: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Baris CSV tidak valid: " + line);
             }
         }
     }
 }
-private void saveTableToCSV(File file) throws IOException {
+    private void saveTableToCSV(File file) throws IOException {
      // Ambil model tabel dari jTable1
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
@@ -280,7 +299,7 @@ private void saveTableToCSV(File file) throws IOException {
     } // BufferedWriter akan otomatis ditutup di sini karena digunakan dalam try-with-resources
 }
     
-private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {
+    private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {
    String searchKeyword = jTextFieldCari.getText().toLowerCase(); // Ambil kata kunci pencarian
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); // Ambil model tabel
     TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model); // Gunakan sorter
@@ -294,16 +313,34 @@ private void jTextFieldCariKeyReleased(java.awt.event.KeyEvent evt) {
 }
 
     
-private void loadTransactionsToTable() {
-    List<Transaction> transactions = Transaction.getAllTransactions();
-    DefaultTableModel model = new DefaultTableModel(new Object[]{"Jenis", "Deskripsi", "Nominal", "Tanggal"}, 0);
-    
-    for (Transaction t : transactions) {
-        model.addRow(new Object[]{t.getJenis(), t.getDeskripsi(), t.getNominal()});
-    }
-    jTable1.setModel(model);
-}
+    private void addSearchFilter() {
+        jTextFieldCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                String searchKeyword = jTextFieldCari.getText().toLowerCase();
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+                jTable1.setRowSorter(sorter);
 
+                if (searchKeyword.trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchKeyword));
+                }
+            }
+        });
+    }
+    private void hapusTransaksi() {
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow != -1) {
+            String deskripsi = (String) jTable1.getValueAt(selectedRow, 1);
+            Transaction.deleteTransactionByDeskripsi(deskripsi);
+            loadTransactionsToTable();
+            javax.swing.JOptionPane.showMessageDialog(this, "Transaksi berhasil dihapus.");
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih transaksi yang ingin dihapus.");
+        }
+    }
+    
     private void loadTableWithDate() {
      // Format tanggal dengan lokal Indonesia
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", new java.util.Locale("id", "ID"));
@@ -317,6 +354,7 @@ private void loadTransactionsToTable() {
 
     jTable1.setModel(model);
 }
+    
     public void updateLaporan() {  
    List<Report> laporan = Report.getLatestReports();  
     // Update tampilan jTable1 di sini berdasarkan data di 'laporan'  

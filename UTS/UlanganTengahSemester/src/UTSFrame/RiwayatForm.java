@@ -56,7 +56,7 @@ public class RiwayatForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,7 +66,7 @@ public class RiwayatForm extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 70));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 70));
 
         jPanel2.setBackground(new java.awt.Color(18, 45, 79));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(249, 247, 228), 3));
@@ -91,11 +91,11 @@ public class RiwayatForm extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -108,7 +108,7 @@ public class RiwayatForm extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 320, 390));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 360, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -117,30 +117,36 @@ public class RiwayatForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void loadRiwayatToTextArea() {
-    String sql = "SELECT aktivitas FROM history"; // Sesuaikan dengan struktur tabel
+    public void loadRiwayatToTextArea() {
+    String sql = "SELECT jenis, deskripsi, nominal, tanggal FROM transactions";
     try (Connection conn = KoneksiDB.connect();
          PreparedStatement pstmt = conn.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery()) {
 
-        // Periksa apakah ada data
-        if (!rs.next()) {
-            jTextAreaRiwayat.append("Tidak ada riwayat transaksi.\n");
-            return;
+        jTextAreaRiwayat.setText(""); // Kosongkan area teks sebelum menambahkan data baru
+
+        while (rs.next()) {
+            String jenis = rs.getString("jenis");
+            String deskripsi = rs.getString("deskripsi");
+            double nominal = rs.getDouble("nominal");
+            String tanggal = rs.getString("tanggal");
+
+            // Menambahkan informasi transaksi ke area teks
+            jTextAreaRiwayat.append(
+                "Jenis Transaksi : " + jenis + "\n" +
+                "Deskripsi       : " + deskripsi + "\n" +
+                "Nominal         : Rp. " + nominal + "\n" +
+                "Tanggal         : " + tanggal + "\n" +
+                "======================================\n"
+            );
         }
 
-        // Reset JTextArea sebelum menambahkan data baru
-        jTextAreaRiwayat.setText("");
-
-        // Tambahkan data ke JTextArea
-        do {
-            String aktivitas = rs.getString("aktivitas");
-            jTextAreaRiwayat.append(aktivitas + "\n");
-            jTextAreaRiwayat.append("=====================\n"); // Garis pemisah
-        } while (rs.next());
-
+        // Jika tidak ada data
+        if (jTextAreaRiwayat.getText().isEmpty()) {
+            jTextAreaRiwayat.setText("Tidak ada riwayat transaksi.\n======================================");
+        }
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Gagal mengambil data riwayat: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println("Gagal memuat riwayat: " + e.getMessage());
     }
 }
     public void updateRiwayat() {  

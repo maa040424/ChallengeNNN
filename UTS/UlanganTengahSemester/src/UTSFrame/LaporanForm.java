@@ -318,9 +318,14 @@ private void loadTransactionsToTable() {
     jTable1.setModel(model);
 }
     public void updateLaporan() {  
-    // Ambil data laporan terbaru  
-    List<Report> laporan = Report.getLatestReports();  
-    // Update tampilan pada JTable atau komponen yang relevan  
+   List<Report> laporan = Report.getLatestReports();  
+    // Update tampilan jTable1 di sini berdasarkan data di 'laporan'  
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();  
+    model.setRowCount(0); // Clear existing rows  
+
+    for (Report report : laporan) {  
+        model.addRow(new Object[]{report.getPeriode(), report.getPemasukan(), report.getPengeluaran(), report.getSaldo()});  
+    }  
 }
     
     public static void main(String args[]) {

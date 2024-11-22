@@ -124,7 +124,7 @@ public class Transaction {
     public static void updateTransaction(String jenis, String deskripsi, double nominal, String tanggal) {
     // Implementasikan logika pembaruan data di database
     // Misalnya menggunakan SQL UPDATE:
-    String sql = "UPDATE transactions SET jenis = ?, nominal = ?, tanggal = ? WHERE deskripsi = ?";
+     String sql = "UPDATE transactions SET jenis = ?, nominal = ?, tanggal = ? WHERE deskripsi = ?";
     try (Connection conn = KoneksiDB.connect(); 
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, jenis);

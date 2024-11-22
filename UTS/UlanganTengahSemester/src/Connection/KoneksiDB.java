@@ -61,4 +61,5 @@ public class KoneksiDB {
             System.out.println("Gagal membuat tabel di database MySQL: " + e.getMessage());
         }
     }
+    
 }

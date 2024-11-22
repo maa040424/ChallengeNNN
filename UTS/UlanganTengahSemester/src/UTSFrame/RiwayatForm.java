@@ -37,6 +37,7 @@ public class RiwayatForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaRiwayat = new javax.swing.JTextArea();
+        jButtonRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Riwayat Transaksi");
@@ -79,34 +80,43 @@ public class RiwayatForm extends javax.swing.JFrame {
             }
         });
 
-        jTextAreaRiwayat.setEditable(false);
         jTextAreaRiwayat.setBackground(new java.awt.Color(18, 45, 79));
         jTextAreaRiwayat.setColumns(20);
         jTextAreaRiwayat.setForeground(new java.awt.Color(249, 247, 228));
         jTextAreaRiwayat.setRows(5);
         jScrollPane2.setViewportView(jTextAreaRiwayat);
 
+        jButtonRefresh.setText("Refresh");
+        jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonRefresh))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 360, 390));
@@ -118,36 +128,44 @@ public class RiwayatForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
+        loadRiwayatToTextArea(); // Panggil fungsi untuk memuat ulang log
+        JOptionPane.showMessageDialog(this, "Riwayat berhasil diperbarui.", "Info", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_jButtonRefreshActionPerformed
+
     public void loadRiwayatToTextArea() {
-    String sql = "SELECT jenis, deskripsi, nominal, tanggal FROM transactions";
+        String sql = "SELECT aktivitas, timestamp FROM history ORDER BY timestamp DESC";
     try (Connection conn = KoneksiDB.connect();
          PreparedStatement pstmt = conn.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery()) {
 
         jTextAreaRiwayat.setText(""); // Kosongkan area teks sebelum menambahkan data baru
 
+        boolean hasData = false; // Penanda apakah ada data di tabel
         while (rs.next()) {
-            String jenis = rs.getString("jenis");
-            String deskripsi = rs.getString("deskripsi");
-            double nominal = rs.getDouble("nominal");
-            String tanggal = rs.getString("tanggal");
+            hasData = true;
+            String aktivitas = rs.getString("aktivitas") != null ? rs.getString("aktivitas") : "Tidak ada aktivitas";
+            String timestamp = rs.getString("timestamp") != null ? rs.getString("timestamp") : "Tidak ada waktu";
 
-            // Menambahkan informasi transaksi ke area teks
+            // Debugging data yang diambil
+            System.out.println("Data ditemukan: " + aktivitas + " | " + timestamp);
+
+            // Tambahkan log ke area teks
             jTextAreaRiwayat.append(
-                "Jenis Transaksi : " + jenis + "\n" +
-                "Deskripsi       : " + deskripsi + "\n" +
-                "Nominal         : Rp. " + nominal + "\n" +
-                "Tanggal         : " + tanggal + "\n" +
-                "======================================\n"
+                "===============================\n" +
+                "Waktu: " + timestamp + "\n" +
+                aktivitas + "\n"
             );
         }
 
         // Jika tidak ada data
-        if (jTextAreaRiwayat.getText().isEmpty()) {
-            jTextAreaRiwayat.setText("Tidak ada riwayat transaksi.\n======================================");
+        if (!hasData) {
+            jTextAreaRiwayat.setText("Tidak ada log perubahan.\n===============================");
         }
     } catch (SQLException e) {
-        System.out.println("Gagal memuat riwayat: " + e.getMessage());
+        System.err.println("Gagal memuat riwayat log: " + e.getMessage());
+        jTextAreaRiwayat.setText("Gagal memuat riwayat log.\n===============================");
     }
 }
     public void updateRiwayat() {  
@@ -191,6 +209,7 @@ public class RiwayatForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonRefresh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

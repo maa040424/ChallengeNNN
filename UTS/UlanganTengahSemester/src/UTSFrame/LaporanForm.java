@@ -255,7 +255,20 @@ public class LaporanForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimpanActionPerformed
-        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        String jenis = model.getValueAt(i, 0).toString();
+        String deskripsi = model.getValueAt(i, 1).toString();
+        double nominal = Double.parseDouble(model.getValueAt(i, 2).toString());
+        String tanggal = model.getValueAt(i, 3).toString();
+
+        // Simpan perubahan ke database
+        Transaction.updateTransaction(jenis, deskripsi, nominal, tanggal);
+    }
+
+    javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil disimpan.");
+    jButtonSimpan.setEnabled(false); // Nonaktifkan tombol simpan setelah penyimpanan
     }//GEN-LAST:event_jButtonSimpanActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

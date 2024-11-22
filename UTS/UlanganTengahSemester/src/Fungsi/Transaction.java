@@ -121,4 +121,20 @@ public class Transaction {
         System.out.println("Gagal mengimpor transaksi: " + e.getMessage());
     }
 }
+    public static void updateTransaction(String jenis, String deskripsi, double nominal, String tanggal) {
+    // Implementasikan logika pembaruan data di database
+    // Misalnya menggunakan SQL UPDATE:
+    String sql = "UPDATE transactions SET jenis = ?, nominal = ?, tanggal = ? WHERE deskripsi = ?";
+    try (Connection conn = KoneksiDB.connect(); 
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, jenis);
+        pstmt.setDouble(2, nominal);
+        pstmt.setString(3, tanggal);
+        pstmt.setString(4, deskripsi);
+        pstmt.executeUpdate();
+        System.out.println("Transaksi berhasil diperbarui.");
+    } catch (SQLException e) {
+        System.err.println("Gagal memperbarui transaksi: " + e.getMessage());
+    }
+    }
 }

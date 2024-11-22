@@ -264,9 +264,15 @@ public class LaporanForm extends javax.swing.JFrame {
 
 //fungsi fungsi nya 
    public void loadTransactionsToTable() {
-    List<Transaction> transactions = Transaction.getAllTransactions();
-    DefaultTableModel model = new DefaultTableModel(new Object[]{"Jenis", "Deskripsi", "Nominal", "Tanggal"}, 0);
+       DefaultTableModel model = new DefaultTableModel(new Object[]{"Jenis", "Deskripsi", "Nominal", "Tanggal"}, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Semua kolom bisa diedit
+            return true;
+        }
+    };
 
+    List<Transaction> transactions = Transaction.getAllTransactions();
     for (Transaction t : transactions) {
         model.addRow(new Object[]{t.getJenis(), t.getDeskripsi(), t.getNominal(), t.getTanggal()});
     }

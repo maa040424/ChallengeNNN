@@ -148,6 +148,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="jTextAreaRiwayat">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="4f" green="2d" red="12" type="rgb"/>
                 </Property>

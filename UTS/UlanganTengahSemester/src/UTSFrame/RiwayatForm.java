@@ -80,6 +80,7 @@ public class RiwayatForm extends javax.swing.JFrame {
             }
         });
 
+        jTextAreaRiwayat.setEditable(false);
         jTextAreaRiwayat.setBackground(new java.awt.Color(18, 45, 79));
         jTextAreaRiwayat.setColumns(20);
         jTextAreaRiwayat.setForeground(new java.awt.Color(249, 247, 228));

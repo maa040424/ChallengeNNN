@@ -13,6 +13,7 @@ class FinanceApp extends StatelessWidget {
       title: 'Pengelola Keuangan',
       theme: ThemeData(
         primarySwatch: Colors.green,
+        fontFamily: 'Roboto',
       ),
       home: FinanceHome(),
     );
@@ -49,23 +50,46 @@ class _FinanceHomeState extends State<FinanceHome> {
   void _showAddTransactionModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
       builder: (_) {
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
+              Text(
+                'Tambah Transaksi',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 15),
               TextField(
                 controller: _titleController,
-                decoration: InputDecoration(labelText: 'Judul Transaksi'),
+                decoration: InputDecoration(
+                  labelText: 'Judul Transaksi',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
+              SizedBox(height: 10),
               TextField(
                 controller: _amountController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Jumlah'),
+                decoration: InputDecoration(
+                  labelText: 'Jumlah',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -78,12 +102,17 @@ class _FinanceHomeState extends State<FinanceHome> {
                         _addTransaction(title, amount, true);
                       }
                     },
-                    child: Text('Tambah Pemasukan'),
+                    child: Text('Pemasukan'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red, // Warna tombol pengeluaran
-                    ),
                     onPressed: () {
                       final title = _titleController.text;
                       final amount =
@@ -92,7 +121,15 @@ class _FinanceHomeState extends State<FinanceHome> {
                         _addTransaction(title, amount, false);
                       }
                     },
-                    child: Text('Tambah Pengeluaran'),
+                    child: Text('Pengeluaran'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -108,27 +145,37 @@ class _FinanceHomeState extends State<FinanceHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pengelola Keuangan'),
+        centerTitle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        ),
       ),
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(20.0),
             child: Card(
-              elevation: 5,
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'Total Saldo',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 10),
                     Text(
                       'Rp ${_totalBalance.toStringAsFixed(2)}',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: _totalBalance >= 0 ? Colors.green : Colors.red,
                       ),
@@ -140,32 +187,44 @@ class _FinanceHomeState extends State<FinanceHome> {
           ),
           Expanded(
             child: _transactions.isEmpty
-                ? Center(child: Text('Belum ada transaksi.'))
+                ? Center(
+                    child: Text(
+                      'Belum ada transaksi.',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                  )
                 : ListView.builder(
                     itemCount: _transactions.length,
                     itemBuilder: (ctx, index) {
                       final tx = _transactions[index];
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor:
-                              tx['isIncome'] ? Colors.green : Colors.red,
-                          child: Icon(
-                            tx['isIncome']
-                                ? Icons.arrow_downward
-                                : Icons.arrow_upward,
-                            color: Colors.white,
+                      return Card(
+                        elevation: 4,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor:
+                                tx['isIncome'] ? Colors.green : Colors.red,
+                            child: Icon(
+                              tx['isIncome']
+                                  ? Icons.arrow_downward
+                                  : Icons.arrow_upward,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        title: Text(tx['title']),
-                        subtitle: Text(
-                          DateFormat('dd-MM-yyyy HH:mm').format(tx['date']),
-                          style: TextStyle(fontSize: 12),
-                        ),
-                        trailing: Text(
-                          'Rp ${tx['amount'].toStringAsFixed(2)}',
-                          style: TextStyle(
-                            color: tx['isIncome'] ? Colors.green : Colors.red,
-                            fontWeight: FontWeight.bold,
+                          title: Text(
+                            tx['title'],
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            DateFormat('dd-MM-yyyy HH:mm').format(tx['date']),
+                          ),
+                          trailing: Text(
+                            'Rp ${tx['amount'].toStringAsFixed(2)}',
+                            style: TextStyle(
+                              color: tx['isIncome'] ? Colors.green : Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       );
@@ -177,6 +236,7 @@ class _FinanceHomeState extends State<FinanceHome> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddTransactionModal(context),
         child: Icon(Icons.add),
+        backgroundColor: Colors.green,
       ),
     );
   }

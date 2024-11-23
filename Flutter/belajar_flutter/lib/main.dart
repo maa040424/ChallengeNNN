@@ -81,8 +81,9 @@ class _FinanceHomeState extends State<FinanceHome> {
                     child: Text('Tambah Pemasukan'),
                   ),
                   ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red, // Warna tombol pengeluaran
+                    ),
                     onPressed: () {
                       final title = _titleController.text;
                       final amount =

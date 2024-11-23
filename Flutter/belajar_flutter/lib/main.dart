@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(FinanceApp());
@@ -80,7 +81,8 @@ class _FinanceHomeState extends State<FinanceHome> {
                     child: Text('Tambah Pemasukan'),
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.red),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
                     onPressed: () {
                       final title = _titleController.text;
                       final amount =
@@ -155,7 +157,7 @@ class _FinanceHomeState extends State<FinanceHome> {
                         ),
                         title: Text(tx['title']),
                         subtitle: Text(
-                          '${tx['date']}',
+                          DateFormat('dd-MM-yyyy HH:mm').format(tx['date']),
                           style: TextStyle(fontSize: 12),
                         ),
                         trailing: Text(

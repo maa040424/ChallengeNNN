@@ -56,32 +56,6 @@ Keliling lingkaran: 43.982
 
 Berikut adalah contoh kode sumber untuk program ini:
 
-```cpp
-#include <iostream>
-#include <cmath> // Untuk konstanta M_PI
-
-using namespace std;
-
-int main() {
-    double radius, luas, keliling;
-
-    cout << "=======================================" << endl;
-    cout << "  Program Hitung Luas dan Keliling Lingkaran" << endl;
-    cout << "=======================================" << endl;
-    
-    cout << "Masukkan jari-jari lingkaran: ";
-    cin >> radius;
-
-    // Hitung luas dan keliling
-    luas = M_PI * pow(radius, 2);
-    keliling = 2 * M_PI * radius;
-
-    // Tampilkan hasil
-    cout << "Luas lingkaran: " << luas << endl;
-    cout << "Keliling lingkaran: " << keliling << endl;
-
-    return 0;
-}
 
 
 ## Lisensi

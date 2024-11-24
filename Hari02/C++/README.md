@@ -52,10 +52,6 @@ Luas lingkaran: 153.938
 Keliling lingkaran: 43.982
 ```
 
-## Kode Sumber
-
-Berikut adalah contoh kode sumber untuk program ini:
-
 
 
 ## Lisensi

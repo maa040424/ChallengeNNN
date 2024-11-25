@@ -56,7 +56,7 @@ Proyek ini dilindungi oleh [MIT License](LICENSE). Anda bebas menggunakan dan me
 
 ## Kontak
 Jika Anda memiliki pertanyaan atau saran, hubungi kami di:  
-Email: [alghifarimadam04@gmail.com](mailto:your-email@example.com)  
+Email: [alghifarimadam04@gmail.com](mailto:alghifarimadam04@gmail.com)  
 
 ```
 

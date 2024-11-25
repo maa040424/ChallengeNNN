@@ -1,6 +1,6 @@
 Berikut adalah revisi file `README.md`, yang lebih sesuai untuk folder yang berisi program atau kode yang berhubungan dengan "membantu" atau "menjoki":
 
-```markdown
+
 # Membantu atau Menjoki
 
 ## Deskripsi

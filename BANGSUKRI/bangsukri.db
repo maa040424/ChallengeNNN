@@ -1,0 +1,24 @@
+
+-- SQLite database creation for bangsukri
+CREATE TABLE IF NOT EXISTS pemasok (
+    id_pemasok INTEGER PRIMARY KEY AUTOINCREMENT,
+    nama_pemasok TEXT NOT NULL,
+    nomor_hp TEXT NOT NULL,
+    alamat TEXT
+);
+
+CREATE TABLE IF NOT EXISTS barang (
+    id_barang INTEGER PRIMARY KEY AUTOINCREMENT,
+    nama_barang TEXT NOT NULL,
+    kategori TEXT NOT NULL,
+    harga REAL NOT NULL,
+    stok INTEGER NOT NULL
+);
+
+INSERT INTO pemasok (nama_pemasok, nomor_hp, alamat) VALUES
+('Pemasok A', '081234567890', 'Alamat A'),
+('Pemasok B', '082345678901', 'Alamat B');
+
+INSERT INTO barang (nama_barang, kategori, harga, stok) VALUES
+('Barang A', 'Kategori 1', 10000, 50),
+('Barang B', 'Kategori 2', 20000, 30);

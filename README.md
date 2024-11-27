@@ -43,5 +43,6 @@ Selamat ngoding dan semoga bermanfaat!
 ---
 ### Kreator
 Nama : Aqueit
+cuman ngasal awokawokawok 
 
 **Gabut Produktif, November Nonstop Ngoding!** 🚀

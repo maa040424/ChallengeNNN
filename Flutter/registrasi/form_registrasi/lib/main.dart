@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'registrasi.dart'; // Pastikan untuk mengimpor file registrasi.dart
 
 void main() {
   runApp(MyApp());
@@ -9,11 +8,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Form Registrasi',
+      title: 'Aplikasi Saya',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PageRegistrasi(), // Memanggil halaman registrasi
+      debugShowCheckedModeBanner: false, // Menonaktifkan label debug
+      home: PageRegistrasi(),
+    );
+  }
+}
+
+class PageRegistrasi extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Form Registrasi'),
+      ),
+      body: Center(
+        child: Text('Isi Form Registrasi Anda'),
+      ),
     );
   }
 }

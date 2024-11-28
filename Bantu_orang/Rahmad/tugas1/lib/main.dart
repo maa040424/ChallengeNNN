@@ -14,7 +14,7 @@ class Helloworld extends StatelessWidget {
       title: "Hello World",
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.greenAccent, // Ganti warna app bar
           title: const Text("Hello World App"),
           centerTitle: true,
           actions: [
@@ -35,12 +35,12 @@ class Helloworld extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Nama: Muhammad Adam Alghifari',
+                  'Nama: Rahmad', // Ganti nama
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'NPM: 2210010314',
+                  'NPM: 2210010446', // Ganti NPM
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(height: 16),
@@ -66,6 +66,7 @@ class Helloworld extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           child: Icon(Icons.add),
+          backgroundColor: Colors.blue, // Ganti warna tombol aksi
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
@@ -75,6 +76,7 @@ class Helloworld extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: 'Pengaturan'),
           ],
+          backgroundColor: Colors.orangeAccent, // Ganti warna bottom nav
         ),
       ),
     );
